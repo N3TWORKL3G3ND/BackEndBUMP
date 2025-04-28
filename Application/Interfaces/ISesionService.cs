@@ -10,6 +10,6 @@ namespace Application.Interfaces
 {
     public interface ISesionService
     {
-        Task<ResBase> IniciarSesionAsync(ReqIniciarSesion request);
+        //Task<ResBase> IniciarSesionAsync(ReqIniciarSesion request);
     }
 }

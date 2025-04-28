@@ -18,21 +18,7 @@ namespace Apis.Controllers
         }
 
 
-
-        [HttpPost("IniciarSesion")]
-        public async Task<IActionResult> IniciarSesion([FromBody] ReqIniciarSesion request)
-        {
-            ResBase response = await _sesionService.IniciarSesionAsync(request);
-
-            if (response.resultado)
-            {
-                return Ok(response);
-            }
-            else
-            {
-                return BadRequest(response);
-            }
-        }
+        
 
 
 
