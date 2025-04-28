@@ -39,7 +39,10 @@ namespace Apis.Controllers
                 {
                     Console.WriteLine(error);
                 }
-                return BadRequest(res.detalle);
+                return BadRequest(new
+                {
+                    res.detalle
+                });
             }
         }
     }
