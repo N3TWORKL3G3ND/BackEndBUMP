@@ -1,6 +1,7 @@
 using Application.Interfaces;
 using Application.Services;
 using Data.Contexts;
+using Data.InternalServices;
 using Data.Repositories;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<BumpContext>(options =>
 // Registrar servicios y repositorios
 builder.Services.AddScoped<ISesionService, SesionService>();
 builder.Services.AddScoped<ISesionRepository, SesionRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
