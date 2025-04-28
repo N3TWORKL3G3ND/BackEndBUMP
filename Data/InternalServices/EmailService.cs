@@ -6,11 +6,6 @@ using Microsoft.Extensions.Configuration;
 using MailKit.Net.Smtp;
 using MimeKit;
 
-
-
-
-
-
 namespace Data.InternalServices
 {
     public class EmailService : IEmailService
@@ -52,4 +47,4 @@ namespace Data.InternalServices
 
 
 }
-}
+

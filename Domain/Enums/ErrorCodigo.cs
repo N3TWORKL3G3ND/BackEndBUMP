@@ -18,11 +18,35 @@ public enum ErrorCodigo
     CorreoRepetido = 2,
 
     [Description("El sistema no logró generar un correo electrónico correctamente.")]
-    ErrorAlGenerarCorreo = 3
+    ErrorAlGenerarCorreo = 3,
+
+    [Description("Ocurrio un error al intentar llamar a un procedimiento almacenado del sistema.")]
+    ErrorProcedimientoAlmacenado = 4
 }
 
 public static class ErrorCodigoExtensions
 {
+    public static ErrorCodigo ObtenerCodigoErrorEnum(int? codigoError)
+    {
+        if (codigoError == null)
+        {
+            // Si el código de error es nulo, puedes devolver un valor por defecto o lanzar una excepción
+            return ErrorCodigo.ErrorDesconocido;
+        }
+
+        // Intenta convertir el código de error en un valor del enum
+        if (Enum.IsDefined(typeof(ErrorCodigo), codigoError))
+        {
+            return (ErrorCodigo)codigoError;
+        }
+        else
+        {
+            // Si no es un valor definido en el enum, puedes manejarlo de alguna forma, como devolver un error desconocido
+            return ErrorCodigo.ErrorDesconocido;
+        }
+    }
+
+
     public static string GetDescription(this Enum value)
     {
         // Obtener el campo del enum
