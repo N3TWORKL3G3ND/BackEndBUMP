@@ -31,6 +31,15 @@ public enum ErrorCodigo
 
     [Description("El correo no ha sido verificado.")]
     CorreoNoVerificado = 7,
+
+    [Description("El correo ya está verificado.")]
+    CorreoYaVerificado = 8,
+
+    [Description("El código de verificación no es válido.")]
+    CodigoVerificacionInvalido = 9,
+
+    [Description("El código de verificación ha expirado.")]
+    CodigoVerificacionExpirado = 10,
 }
 
 public static class ErrorCodigoExtensions

@@ -48,6 +48,36 @@ namespace Apis.Controllers
 
 
 
+        [HttpPost("ValidarCorreo")]
+        public async Task<IActionResult> ValidarCorreo([FromBody] ReqValidarCorreo request)
+        {
+            // Llamar al método de negocio
+            ResBase res = await _usuarioService.ValidarCorreoAsync(request);
+
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Usuarios/ValidarCorreo");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle
+                });
+            }
+        }
+
+
+
 
 
 

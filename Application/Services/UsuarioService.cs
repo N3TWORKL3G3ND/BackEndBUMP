@@ -124,6 +124,96 @@ namespace Application.Services
 
 
 
+        public async Task<ResBase> ValidarCorreoAsync(ReqValidarCorreo request)
+        {
+            var res = new ResBase
+            {
+                resultado = false,
+                detalle = string.Empty,
+                errores = new List<string>()
+            };
+
+            if (request == null)
+            {
+                res.errores.Add("El request no puede ser nulo.");
+                res.detalle = "El request no puede ser nulo.";
+                return res;
+            }
+
+            if (string.IsNullOrWhiteSpace(request.correo))
+                res.errores.Add("El correo es obligatorio.");
+            else if (!Regex.IsMatch(request.correo, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                res.errores.Add("El correo debe ser válido.");
+
+            if (string.IsNullOrWhiteSpace(request.codigoVerificacion))
+                res.errores.Add("El código de verificación es obligatorio.");
+            else if (request.codigoVerificacion.Length > 10 || !request.codigoVerificacion.All(char.IsDigit))
+                res.errores.Add("El código de verificación debe ser un número igual o menor a 10 dígitos.");
+
+            if (res.errores.Count > 0)
+            {
+                res.detalle = "Errores de validación en los datos proporcionados.";
+                return res;
+            }
+
+            try
+            {
+                var (success, codigoError, detalleError, detalleUsuario) = await _usuarioRepository.ValidarCodigoVerificacionAsync(
+                    request.correo,
+                    request.codigoVerificacion);
+
+                if (!success)
+                {
+                    res.errores.Add(detalleUsuario);
+                    res.detalle = detalleUsuario;
+                    res.errores.Add(ErrorCodigoExtensions.GetDescription(ErrorCodigoExtensions.ObtenerCodigoErrorEnum(codigoError)));
+                    return res;
+                }
+
+                res.resultado = true;
+                res.detalle = detalleUsuario;
+                return res;
+            }
+            catch (SqlException ex)
+            {
+                res.errores.Add($"Error en la base de datos: {ex.Message}");
+                res.detalle = "Ocurrió un error al verificar el correo.";
+                return res;
+            }
+            catch (Exception ex)
+            {
+                res.errores.Add($"Error inesperado: {ex.Message}");
+                res.detalle = "Ocurrió un error inesperado al verificar el correo.";
+                return res;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
