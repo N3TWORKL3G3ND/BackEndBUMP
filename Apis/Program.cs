@@ -56,6 +56,10 @@ builder.Services.AddDbContext<BumpContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("JavierConnection")));
 
 
+// Registrar HttpContextAccessor
+builder.Services.AddHttpContextAccessor();
+
+
 
 // Registrar servicios y repositorios
 builder.Services.AddScoped<ISesionService, SesionService>();

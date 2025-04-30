@@ -4,6 +4,7 @@ using Contracts.Responses;
 using Domain.Enums;
 using Domain.Interfaces;
 using Domain.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -22,11 +23,13 @@ namespace Application.Services
     {
         private readonly ISesionRepository _sesionRepository;
         private readonly IJwtService _jwtService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public SesionService(ISesionRepository sesionRepository, IJwtService jwtService)
+        public SesionService(ISesionRepository sesionRepository, IJwtService jwtService, IHttpContextAccessor httpContextAccessor)
         {
             _sesionRepository = sesionRepository;
             _jwtService = jwtService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
 
@@ -98,10 +101,57 @@ namespace Application.Services
 
 
 
+        public async Task<ResBase> CerrarSesionAsync()
+        {
+            var res = new ResBase
+            {
+                resultado = false,
+                detalle = string.Empty,
+                errores = new List<string>()
+            };
+
+            var sessionGuidClaim = _httpContextAccessor.HttpContext?.User.FindFirst("session_guid")?.Value;
+            if (string.IsNullOrEmpty(sessionGuidClaim) || !Guid.TryParse(sessionGuidClaim, out var sessionGuid))
+            {
+                res.errores.Add("No se encontró una sesión válida.");
+                res.detalle = "No se pudo cerrar la sesión.";
+                return res;
+            }
+
+            try
+            {
+                var (success, detalleError, detalleUsuario) = await _sesionRepository.CerrarSesionAsync(sessionGuid);
+                if (!success)
+                {
+                    res.errores.Add(detalleUsuario);
+                    res.detalle = detalleUsuario;
+                    return res;
+                }
+
+                res.resultado = true;
+                res.detalle = detalleUsuario;
+                return res;
+            }
+            catch (SqlException ex)
+            {
+                res.errores.Add($"Error en la base de datos: {ex.Message}");
+                res.detalle = "Ocurrió un error al cerrar la sesión.";
+                return res;
+            }
+            catch (Exception ex)
+            {
+                res.errores.Add($"Error inesperado: {ex.Message}");
+                res.detalle = "Ocurrió un error inesperado al cerrar la sesión.";
+                return res;
+            }
+        }
 
 
 
-        
+
+
+
+
 
 
 

@@ -118,6 +118,54 @@ namespace Data.Repositories
 
 
 
+        public async Task<(bool success, string detalleError, string detalleUsuario)> CerrarSesionAsync(Guid sessionGuid)
+        {
+            var query = "EXEC SP_CERRAR_SESION @SESSION_GUID, @RESULTADO OUTPUT, @DETALLE_ERROR OUTPUT, @DETALLE_USUARIO OUTPUT";
+            var connection = _context.Database.GetDbConnection();
+
+            await connection.OpenAsync();
+
+            try
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+
+                    command.Parameters.Add(new SqlParameter("@SESSION_GUID", sessionGuid));
+
+                    var resultadoParam = new SqlParameter("@RESULTADO", SqlDbType.Bit) { Direction = ParameterDirection.Output };
+                    var detalleErrorParam = new SqlParameter("@DETALLE_ERROR", SqlDbType.NVarChar, 500) { Direction = ParameterDirection.Output };
+                    var detalleUsuarioParam = new SqlParameter("@DETALLE_USUARIO", SqlDbType.NVarChar, 500) { Direction = ParameterDirection.Output };
+
+                    command.Parameters.Add(resultadoParam);
+                    command.Parameters.Add(detalleErrorParam);
+                    command.Parameters.Add(detalleUsuarioParam);
+
+                    await command.ExecuteNonQueryAsync();
+
+                    bool success = (bool)resultadoParam.Value;
+                    string detalleError = detalleErrorParam.Value as string ?? string.Empty;
+                    string detalleUsuario = detalleUsuarioParam.Value as string ?? string.Empty;
+
+                    return (success, detalleError, detalleUsuario);
+                }
+            }
+            catch (SqlException ex)
+            {
+                return (false, $"Error al ejecutar SP_CERRAR_SESION: {ex.Message}", "Ocurrió un error al cerrar la sesión.");
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+    
+
+
+
+
+
 
 
 

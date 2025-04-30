@@ -2,6 +2,7 @@
 using Application.Services;
 using Contracts.Requests;
 using Contracts.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Apis.Controllers
@@ -21,7 +22,7 @@ namespace Apis.Controllers
 
 
         [HttpPost("Login")]
-        public async Task<IActionResult> CrearUsuario([FromBody] ReqLoginUsuario request)
+        public async Task<IActionResult> Login([FromBody] ReqLoginUsuario request)
         {
             // Llamar al método de negocio
             ResLoginUsuario res = await _sesionService.LoginUsuarioAsync(request);
@@ -52,6 +53,36 @@ namespace Apis.Controllers
             }
         }
 
+
+
+        [Authorize]
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout([FromBody] ReqLoginUsuario request)
+        {
+            // Llamar al método de negocio
+            ResBase res = await _sesionService.CerrarSesionAsync();
+
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Sesion/Logout");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle
+                });
+            }
+        }
 
 
 

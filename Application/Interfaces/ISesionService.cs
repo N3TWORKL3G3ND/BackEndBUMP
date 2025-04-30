@@ -11,5 +11,6 @@ namespace Application.Interfaces
     public interface ISesionService
     {
         Task<ResLoginUsuario> LoginUsuarioAsync(ReqLoginUsuario request);
+        Task<ResBase> CerrarSesionAsync();
     }
 }
