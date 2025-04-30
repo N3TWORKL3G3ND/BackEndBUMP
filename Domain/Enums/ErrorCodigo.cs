@@ -21,7 +21,16 @@ public enum ErrorCodigo
     ErrorAlGenerarCorreo = 3,
 
     [Description("Ocurrio un error al intentar llamar a un procedimiento almacenado del sistema.")]
-    ErrorProcedimientoAlmacenado = 4
+    ErrorProcedimientoAlmacenado = 4,
+
+    [Description("El correo no está registrado.")]
+    CorreoNoEncontrado = 5,
+
+    [Description("La contraseña es incorrecta.")]
+    ContrasenaIncorrecta = 6,
+
+    [Description("El correo no ha sido verificado.")]
+    CorreoNoVerificado = 7,
 }
 
 public static class ErrorCodigoExtensions

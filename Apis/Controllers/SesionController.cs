@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Services;
 using Contracts.Requests;
 using Contracts.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,62 @@ namespace Apis.Controllers
         }
 
 
-        
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> CrearUsuario([FromBody] ReqLoginUsuario request)
+        {
+            // Llamar al método de negocio
+            ResLoginUsuario res = await _sesionService.LoginUsuarioAsync(request);
+
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle,
+                    res.correoVerificado,
+                    res.token
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Sesion/Login");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle,
+                    res.correoVerificado,
+                    res.token
+                });
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

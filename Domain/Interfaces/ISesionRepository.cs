@@ -8,6 +8,7 @@ namespace Domain.Interfaces
 {
     public interface ISesionRepository
     {
-        //Task<bool> ValidarLoginAsync(string correo, string contrasena);
+        Task<(bool Success, string NombreUsuario, bool CorreoVerificado, Guid SessionGuid, int? CodigoError, string DetalleError, string DetalleUsuario)> LoginUsuarioAsync(string correo, string contrasena);
+        Task<(bool success, string detalleError)> ValidarSesionAsync(Guid sessionGuid);
     }
 }
