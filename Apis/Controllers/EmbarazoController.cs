@@ -81,6 +81,82 @@ namespace Apis.Controllers
 
 
 
+        [HttpPost("RegistrarProgresoEmbarazo")]
+        public async Task<IActionResult> RegistrarProgresoEmbarazo([FromBody] ReqRegistrarProgresoEmbarazo request)
+        {
+            // Llamar al método de negocio
+            ResBase res = await _embarazoService.RegistrarProgresoEmbarazoAsync(request);
+
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Embarazo/RegistrarProgresoEmbarazo");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle
+                });
+            }
+        }
+
+
+
+        [HttpGet("ListarProgresosEmbarazo/{idEmbarazo}")]
+        public async Task<IActionResult> ListarProgresosEmbarazo(int idEmbarazo)
+        {
+            // Llamar al método de negocio
+            var res = await _embarazoService.ListarProgresosEmbarazoAsync(idEmbarazo);
+
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle,
+                    res.listaProgresos
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Embarazo/ListarProgresosEmbarazo");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle
+                });
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

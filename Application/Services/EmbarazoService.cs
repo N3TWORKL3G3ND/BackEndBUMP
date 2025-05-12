@@ -159,6 +159,145 @@ namespace Application.Services
 
 
 
+        public async Task<ResBase> RegistrarProgresoEmbarazoAsync(ReqRegistrarProgresoEmbarazo request)
+        {
+            var res = new ResBase
+            {
+                resultado = false,
+                detalle = string.Empty,
+                errores = new List<string>()
+            };
+
+            // 0. Validar que el request no sea nulo
+            if (request == null)
+            {
+                res.errores.Add("El request no puede ser nulo.");
+                res.detalle = "El request no puede ser nulo.";
+                return res;
+            }
+
+            // 1. Validar datos de entrada
+            if (request.idEmbarazo <= 0)
+                res.errores.Add("El ID de embarazo es obligatorio y debe ser mayor que cero.");
+
+            if (request.pesoMadre.HasValue && request.pesoMadre <= 0)
+                res.errores.Add("El peso de la madre debe ser mayor que cero.");
+
+            if (request.tamanoBebe.HasValue && request.tamanoBebe <= 0)
+                res.errores.Add("El tamaño del bebé debe ser mayor que cero.");
+
+            if (res.errores.Count > 0)
+            {
+                res.detalle = "Errores de validación en los datos proporcionados.";
+                return res;
+            }
+
+            // 2. Llamar al repositorio
+            try
+            {
+                var (success, codigoError, detalleError, detalleUsuario) = await _embarazoRepository.RegistrarProgresoEmbarazoAsync(
+                    request.idEmbarazo,
+                    request.pesoMadre,
+                    request.tamanoBebe,
+                    request.notas
+                );
+
+                if (!success)
+                {
+                    res.errores.Add(ErrorCodigoExtensions.GetDescription(ErrorCodigoExtensions.ObtenerCodigoErrorEnum(codigoError)));
+                    res.detalle = detalleUsuario;
+                    return res;
+                }
+
+                // 3. Respuesta exitosa
+                res.resultado = true;
+                res.detalle = "Progreso del embarazo registrado exitosamente.";
+                return res;
+            }
+            catch (SqlException ex)
+            {
+                res.errores.Add($"Error en la base de datos: {ex.Message}");
+                res.detalle = "Ocurrió un error al registrar el progreso del embarazo.";
+                return res;
+            }
+            catch (Exception ex)
+            {
+                res.errores.Add($"Error inesperado: {ex.Message}");
+                res.detalle = "Ocurrió un error inesperado al registrar el progreso del embarazo.";
+                return res;
+            }
+        }
+
+
+
+        public async Task<ResListarProgresosEmbarazo> ListarProgresosEmbarazoAsync(int idEmbarazo)
+        {
+            var res = new ResListarProgresosEmbarazo
+            {
+                resultado = false,
+                detalle = string.Empty,
+                errores = new List<string>(),
+                listaProgresos = new List<ProgresoEmbarazoDto>()
+            };
+
+            // 1. Validar que el ID del embarazo no sea nulo o inválido
+            if (idEmbarazo <= 0)
+            {
+                res.errores.Add("El ID del embarazo es inválido.");
+                res.detalle = "No se pudo listar los progresos del embarazo debido a un ID inválido.";
+                return res;
+            }
+
+            // 2. Llamar al repositorio para listar los progresos de embarazo
+            try
+            {
+                var (success, codigoError, detalleError, detalleUsuario, listaProgresos) = await _embarazoRepository.ListarProgresosEmbarazoAsync(idEmbarazo);
+
+                if (!success)
+                {
+                    res.errores.Add(ErrorCodigoExtensions.GetDescription(ErrorCodigoExtensions.ObtenerCodigoErrorEnum(codigoError)));
+                    res.detalle = detalleUsuario;
+                    return res;
+                }
+
+                // 3. Respuesta exitosa
+                res.resultado = true;
+                res.detalle = "Lista de progresos de embarazo obtenida exitosamente.";
+                res.listaProgresos = listaProgresos;
+                return res;
+            }
+            catch (SqlException ex)
+            {
+                res.errores.Add($"Error en la base de datos: {ex.Message}");
+                res.detalle = "Ocurrió un error al listar los progresos del embarazo.";
+                return res;
+            }
+            catch (Exception ex)
+            {
+                res.errores.Add($"Error inesperado: {ex.Message}");
+                res.detalle = "Ocurrió un error inesperado al listar los progresos del embarazo.";
+                return res;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

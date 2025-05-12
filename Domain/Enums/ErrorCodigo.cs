@@ -49,6 +49,9 @@ public enum ErrorCodigo
 
     [Description("Ocurrió una inconsistencia con una fecha digitada.")]
     FechaInvalida = 13,
+
+    [Description("No se encontró un embarazo activo con el ID proporcionado.")]
+    EmbarazoValidoNoEncontrado = 14,
 }
 
 public static class ErrorCodigoExtensions
