@@ -173,6 +173,33 @@ namespace Apis.Controllers
 
 
 
+        [HttpPost("RegistrarCita")]
+        public async Task<IActionResult> RegistrarCita([FromBody] ReqRegistrarCita request)
+        {
+            // Llamar al método de negocio
+            ResBase res = await _embarazoService.RegistrarCitaAsync(request, User);
+
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Cita/RegistrarCita");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle
+                });
+            }
+        }
 
 
 

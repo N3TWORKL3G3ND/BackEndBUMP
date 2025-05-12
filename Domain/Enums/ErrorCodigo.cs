@@ -52,6 +52,15 @@ public enum ErrorCodigo
 
     [Description("No se encontró un embarazo activo con el ID proporcionado.")]
     EmbarazoValidoNoEncontrado = 14,
+
+    [Description("No se encontró un hospital con el ID proporcionado.")]
+    HospitalNoEncontrado = 15,
+
+    [Description("No se encontró un embarazo activo para el usuario.")]
+    EmbarazoActivoNoEncontrado = 16,
+
+    [Description("El estado proporcionado no es válido.")]
+    EstadoInvalido = 17,
 }
 
 public static class ErrorCodigoExtensions

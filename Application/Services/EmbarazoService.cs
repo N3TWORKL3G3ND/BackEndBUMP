@@ -326,6 +326,86 @@ namespace Application.Services
 
 
 
+        public async Task<ResBase> RegistrarCitaAsync(ReqRegistrarCita request, ClaimsPrincipal user)
+        {
+            var res = new ResBase
+            {
+                resultado = false,
+                detalle = string.Empty,
+                errores = new List<string>()
+            };
+
+            // 0. Validar que el request no sea nulo
+            if (request == null)
+            {
+                res.errores.Add("El request no puede ser nulo.");
+                res.detalle = "El request no puede ser nulo.";
+                return res;
+            }
+
+            // 1. Validar datos de entrada
+            if (request.idHospital <= 0)
+                res.errores.Add("El ID de hospital es obligatorio y debe ser mayor que cero.");
+
+            if (request.fechaHoraCita == null)
+                res.errores.Add("La fecha y hora de la cita son obligatorias.");
+
+            if (request.estado < 0 || request.estado > 2)
+                res.errores.Add("El estado de la cita debe ser 0 (Pendiente), 1 (Confirmada) o 2 (Cancelada).");
+
+            if (res.errores.Count > 0)
+            {
+                res.detalle = "Errores de validación en los datos proporcionados.";
+                return res;
+            }
+
+            // 2. Obtener el Session GUID del token
+            Guid sessionGuid;
+            var sessionGuidClaim = user.Claims.FirstOrDefault(c => c.Type == "session_guid")?.Value;
+
+            if (string.IsNullOrWhiteSpace(sessionGuidClaim) || !Guid.TryParse(sessionGuidClaim, out sessionGuid))
+            {
+                res.errores.Add("No se pudo obtener la sesión del usuario actual.");
+                res.detalle = "No se pudo registrar la cita porque no se identificó la sesión.";
+                return res;
+            }
+
+            // 3. Llamar al repositorio
+            try
+            {
+                var (success, codigoError, detalleError, detalleUsuario) = await _embarazoRepository.RegistrarCitaAsync(
+                    sessionGuid,  // Aquí pasamos el session_guid desde los claims
+                    request.idHospital,
+                    request.fechaHoraCita,
+                    request.descripcion,
+                    request.estado
+                );
+
+                if (!success)
+                {
+                    res.errores.Add(ErrorCodigoExtensions.GetDescription(ErrorCodigoExtensions.ObtenerCodigoErrorEnum(codigoError)));
+                    res.detalle = detalleUsuario;
+                    return res;
+                }
+
+                // 4. Respuesta exitosa
+                res.resultado = true;
+                res.detalle = "Cita registrada exitosamente.";
+                return res;
+            }
+            catch (SqlException ex)
+            {
+                res.errores.Add($"Error en la base de datos: {ex.Message}");
+                res.detalle = "Ocurrió un error al registrar la cita.";
+                return res;
+            }
+            catch (Exception ex)
+            {
+                res.errores.Add($"Error inesperado: {ex.Message}");
+                res.detalle = "Ocurrió un error inesperado al registrar la cita.";
+                return res;
+            }
+        }
 
 
 

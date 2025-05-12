@@ -334,6 +334,57 @@ namespace Data.Repositories
 
 
 
+        public async Task<(bool Success, int? CodigoError, string DetalleError, string DetalleUsuario)> RegistrarCitaAsync(Guid sessionGuid, int idHospital, DateTime fechaHoraCita, string descripcion, byte estado)
+        {
+            var query = "EXEC SP_REGISTRAR_CITA @P_SESSION_GUID, @P_ID_HOSPITAL, @P_FECHA_HORA_CITA, @P_DESCRIPCION, @P_ESTADO, @RESULTADO OUTPUT, @CODIGO_ERROR OUTPUT, @DETALLE_ERROR OUTPUT, @DETALLE_USUARIO OUTPUT";
+            var connection = _context.Database.GetDbConnection();
+
+            await connection.OpenAsync();
+
+            try
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+
+                    // Parámetros de entrada
+                    command.Parameters.Add(new SqlParameter("@P_SESSION_GUID", sessionGuid));
+                    command.Parameters.Add(new SqlParameter("@P_ID_HOSPITAL", idHospital));
+                    command.Parameters.Add(new SqlParameter("@P_FECHA_HORA_CITA", fechaHoraCita));
+                    command.Parameters.Add(new SqlParameter("@P_DESCRIPCION", (object?)descripcion ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@P_ESTADO", estado));
+
+                    // Parámetros de salida
+                    var resultadoParam = new SqlParameter("@RESULTADO", SqlDbType.Bit) { Direction = ParameterDirection.Output };
+                    var codigoErrorParam = new SqlParameter("@CODIGO_ERROR", SqlDbType.Int) { Direction = ParameterDirection.Output };
+                    var detalleErrorParam = new SqlParameter("@DETALLE_ERROR", SqlDbType.NVarChar, 500) { Direction = ParameterDirection.Output };
+                    var detalleUsuarioParam = new SqlParameter("@DETALLE_USUARIO", SqlDbType.NVarChar, 500) { Direction = ParameterDirection.Output };
+
+                    command.Parameters.Add(resultadoParam);
+                    command.Parameters.Add(codigoErrorParam);
+                    command.Parameters.Add(detalleErrorParam);
+                    command.Parameters.Add(detalleUsuarioParam);
+
+                    await command.ExecuteNonQueryAsync();
+
+                    bool success = resultadoParam.Value != DBNull.Value && (bool)resultadoParam.Value;
+                    int? codigoError = codigoErrorParam.Value != DBNull.Value ? (int?)codigoErrorParam.Value : null;
+                    string detalleError = detalleErrorParam.Value as string ?? string.Empty;
+                    string detalleUsuario = detalleUsuarioParam.Value as string ?? string.Empty;
+
+                    return (success, codigoError, detalleError, detalleUsuario);
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error al ejecutar el procedimiento almacenado: " + ex.Message);
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
 
 
 
