@@ -40,6 +40,15 @@ public enum ErrorCodigo
 
     [Description("El código de verificación ha expirado.")]
     CodigoVerificacionExpirado = 10,
+
+    [Description("No se encontró una sesión activa para el GUID proporcionado.")]
+    SesionNoValida = 11,
+
+    [Description("El usuario ya tiene un embarazo activo registrado.")]
+    EmbarazoActivoPrexistente = 12,
+
+    [Description("Ocurrió una inconsistencia con una fecha digitada.")]
+    FechaInvalida = 13,
 }
 
 public static class ErrorCodigoExtensions
