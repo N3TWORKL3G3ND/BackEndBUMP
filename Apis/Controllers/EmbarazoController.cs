@@ -142,6 +142,34 @@ namespace Apis.Controllers
 
 
 
+        [HttpGet("ListarHospitales")]
+        public async Task<IActionResult> ListarHospitales()
+        {
+            // Llamar al método de negocio
+            var res = await _embarazoService.ListarHospitalesAsync();
+
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle,
+                    res.listaHospitales
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Hospital/ListarHospitales");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle
+                });
+            }
+        }
 
 
 

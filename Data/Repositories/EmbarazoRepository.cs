@@ -271,6 +271,85 @@ namespace Data.Repositories
 
 
 
+        public async Task<(bool Success, int? CodigoError, string DetalleError, string DetalleUsuario, List<HospitalDto> ListaHospitales)> ListarHospitalesAsync()
+        {
+            var query = "EXEC SP_LISTAR_HOSPITALES @RESULTADO OUTPUT, @CODIGO_ERROR OUTPUT, @DETALLE_ERROR OUTPUT, @DETALLE_USUARIO OUTPUT";
+            var connection = _context.Database.GetDbConnection();
+
+            await connection.OpenAsync();
+
+            try
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+
+                    // Parámetros de salida
+                    var resultadoParam = new SqlParameter("@RESULTADO", SqlDbType.Bit) { Direction = ParameterDirection.Output };
+                    var codigoErrorParam = new SqlParameter("@CODIGO_ERROR", SqlDbType.Int) { Direction = ParameterDirection.Output };
+                    var detalleErrorParam = new SqlParameter("@DETALLE_ERROR", SqlDbType.NVarChar, 500) { Direction = ParameterDirection.Output };
+                    var detalleUsuarioParam = new SqlParameter("@DETALLE_USUARIO", SqlDbType.NVarChar, 500) { Direction = ParameterDirection.Output };
+
+                    command.Parameters.Add(resultadoParam);
+                    command.Parameters.Add(codigoErrorParam);
+                    command.Parameters.Add(detalleErrorParam);
+                    command.Parameters.Add(detalleUsuarioParam);
+
+                    var listaHospitales = new List<HospitalDto>();
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            var item = new HospitalDto
+                            {
+                                IdHospital = reader.GetInt32(reader.GetOrdinal("ID_HOSPITAL")),
+                                Nombre = reader.GetString(reader.GetOrdinal("NOMBRE")),
+                                Direccion = reader.IsDBNull(reader.GetOrdinal("DIRECCION")) ? null : reader.GetString(reader.GetOrdinal("DIRECCION")),
+                                Telefono = reader.IsDBNull(reader.GetOrdinal("TELEFONO")) ? null : reader.GetString(reader.GetOrdinal("TELEFONO"))
+                            };
+
+                            listaHospitales.Add(item);
+                        }
+                    }
+
+                    bool success = resultadoParam.Value != DBNull.Value && (bool)resultadoParam.Value;
+                    int? codigoError = codigoErrorParam.Value != DBNull.Value ? (int?)codigoErrorParam.Value : null;
+                    string detalleError = detalleErrorParam.Value as string ?? string.Empty;
+                    string detalleUsuario = detalleUsuarioParam.Value as string ?? string.Empty;
+
+                    return (success, codigoError, detalleError, detalleUsuario, listaHospitales);
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error al ejecutar el procedimiento almacenado: " + ex.Message);
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

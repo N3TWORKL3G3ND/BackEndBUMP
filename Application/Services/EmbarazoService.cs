@@ -282,6 +282,47 @@ namespace Application.Services
 
 
 
+        public async Task<ResListarHospitales> ListarHospitalesAsync()
+        {
+            var res = new ResListarHospitales
+            {
+                resultado = false,
+                detalle = string.Empty,
+                errores = new List<string>(),
+                listaHospitales = new List<HospitalDto>()
+            };
+
+            // 1. Llamar al repositorio para listar los hospitales
+            try
+            {
+                var (success, codigoError, detalleError, detalleUsuario, listaHospitales) = await _embarazoRepository.ListarHospitalesAsync();
+
+                if (!success)
+                {
+                    res.errores.Add(ErrorCodigoExtensions.GetDescription(ErrorCodigoExtensions.ObtenerCodigoErrorEnum(codigoError)));
+                    res.detalle = detalleUsuario;
+                    return res;
+                }
+
+                // 2. Respuesta exitosa
+                res.resultado = true;
+                res.detalle = "Lista de hospitales obtenida exitosamente.";
+                res.listaHospitales = listaHospitales;
+                return res;
+            }
+            catch (SqlException ex)
+            {
+                res.errores.Add($"Error en la base de datos: {ex.Message}");
+                res.detalle = "Ocurrió un error al listar los hospitales.";
+                return res;
+            }
+            catch (Exception ex)
+            {
+                res.errores.Add($"Error inesperado: {ex.Message}");
+                res.detalle = "Ocurrió un error inesperado al listar los hospitales.";
+                return res;
+            }
+        }
 
 
 
