@@ -409,6 +409,58 @@ namespace Application.Services
 
 
 
+        public async Task<ResListarCitas> ListarCitasAsync(ClaimsPrincipal user)
+        {
+            var res = new ResListarCitas
+            {
+                resultado = false,
+                detalle = string.Empty,
+                errores = new List<string>(),
+                listaCitas = new List<CitaDto>()
+            };
+
+            // 1. Obtener el Session GUID del token
+            Guid sessionGuid;
+            var sessionGuidClaim = user.Claims.FirstOrDefault(c => c.Type == "session_guid")?.Value;
+
+            if (string.IsNullOrWhiteSpace(sessionGuidClaim) || !Guid.TryParse(sessionGuidClaim, out sessionGuid))
+            {
+                res.errores.Add("No se pudo obtener la sesión del usuario actual.");
+                res.detalle = "No se pudo listar las citas porque no se identificó la sesión.";
+                return res;
+            }
+
+            // 2. Llamar al repositorio
+            try
+            {
+                var (success, codigoError, detalleError, detalleUsuario, listaCitas) = await _embarazoRepository.ListarCitasAsync(sessionGuid);
+
+                if (!success)
+                {
+                    res.errores.Add(ErrorCodigoExtensions.GetDescription(ErrorCodigoExtensions.ObtenerCodigoErrorEnum(codigoError)));
+                    res.detalle = detalleUsuario;
+                    return res;
+                }
+
+                // 3. Respuesta exitosa
+                res.resultado = true;
+                res.detalle = "Lista de citas obtenida exitosamente.";
+                res.listaCitas = listaCitas;
+                return res;
+            }
+            catch (SqlException ex)
+            {
+                res.errores.Add($"Error en la base de datos: {ex.Message}");
+                res.detalle = "Ocurrió un error al listar las citas.";
+                return res;
+            }
+            catch (Exception ex)
+            {
+                res.errores.Add($"Error inesperado: {ex.Message}");
+                res.detalle = "Ocurrió un error inesperado al listar las citas.";
+                return res;
+            }
+        }
 
 
 

@@ -382,6 +382,71 @@ namespace Data.Repositories
 
 
 
+        public async Task<(bool Success, int? CodigoError, string DetalleError, string DetalleUsuario, List<CitaDto> ListaCitas)> ListarCitasAsync(Guid sessionGuid)
+        {
+            var query = "EXEC SP_LISTAR_CITAS @P_SESSION_GUID, @RESULTADO OUTPUT, @CODIGO_ERROR OUTPUT, @DETALLE_ERROR OUTPUT, @DETALLE_USUARIO OUTPUT";
+            var connection = _context.Database.GetDbConnection();
+
+            await connection.OpenAsync();
+
+            try
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+
+                    // Parámetro de entrada
+                    command.Parameters.Add(new SqlParameter("@P_SESSION_GUID", sessionGuid));
+
+                    // Parámetros de salida
+                    var resultadoParam = new SqlParameter("@RESULTADO", SqlDbType.Bit) { Direction = ParameterDirection.Output };
+                    var codigoErrorParam = new SqlParameter("@CODIGO_ERROR", SqlDbType.Int) { Direction = ParameterDirection.Output };
+                    var detalleErrorParam = new SqlParameter("@DETALLE_ERROR", SqlDbType.NVarChar, 500) { Direction = ParameterDirection.Output };
+                    var detalleUsuarioParam = new SqlParameter("@DETALLE_USUARIO", SqlDbType.NVarChar, 500) { Direction = ParameterDirection.Output };
+
+                    command.Parameters.Add(resultadoParam);
+                    command.Parameters.Add(codigoErrorParam);
+                    command.Parameters.Add(detalleErrorParam);
+                    command.Parameters.Add(detalleUsuarioParam);
+
+                    var listaCitas = new List<CitaDto>();
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            var cita = new CitaDto
+                            {
+                                IdCita = reader.GetInt32(reader.GetOrdinal("ID_CITA")),
+                                FechaHoraCita = reader.GetDateTime(reader.GetOrdinal("FECHA_HORA_CITA")),
+                                Estado = reader.GetByte(reader.GetOrdinal("ESTADO"))
+                            };
+
+                            listaCitas.Add(cita);
+                        }
+                    }
+
+                    bool success = resultadoParam.Value != DBNull.Value && (bool)resultadoParam.Value;
+                    int? codigoError = codigoErrorParam.Value != DBNull.Value ? (int?)codigoErrorParam.Value : null;
+                    string detalleError = detalleErrorParam.Value as string ?? string.Empty;
+                    string detalleUsuario = detalleUsuarioParam.Value as string ?? string.Empty;
+
+                    return (success, codigoError, detalleError, detalleUsuario, listaCitas);
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error al ejecutar el procedimiento almacenado SP_LISTAR_CITAS: " + ex.Message);
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+
+
 
 
 

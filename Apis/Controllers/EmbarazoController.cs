@@ -203,6 +203,34 @@ namespace Apis.Controllers
 
 
 
+        [HttpGet("ListarCitas")]
+        public async Task<IActionResult> ListarCitas()
+        {
+            // Llamar al método de negocio
+            var res = await _embarazoService.ListarCitasAsync(User);
+
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle,
+                    res.listaCitas
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Cita/ListarCitas");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle
+                });
+            }
+        }
 
 
 

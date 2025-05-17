@@ -17,5 +17,6 @@ namespace Application.Interfaces
         Task<ResListarProgresosEmbarazo> ListarProgresosEmbarazoAsync(int idEmbarazo);
         Task<ResListarHospitales> ListarHospitalesAsync();
         Task<ResBase> RegistrarCitaAsync(ReqRegistrarCita request, ClaimsPrincipal user);
+        Task<ResListarCitas> ListarCitasAsync(ClaimsPrincipal user);
     }
 }
