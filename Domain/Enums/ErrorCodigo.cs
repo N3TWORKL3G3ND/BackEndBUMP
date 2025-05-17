@@ -61,6 +61,9 @@ public enum ErrorCodigo
 
     [Description("El estado proporcionado no es válido.")]
     EstadoInvalido = 17,
+
+    [Description("No se encontró una cita con el ID proporcionado.")]
+    CitaNoEncontrada = 18,
 }
 
 public static class ErrorCodigoExtensions

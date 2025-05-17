@@ -447,6 +447,78 @@ namespace Data.Repositories
 
 
 
+        public async Task<(bool Success, int? CodigoError, string DetalleError, string DetalleUsuario, DesplegarCitaDto? Cita)> DesplegarCitaAsync(int idCita)
+        {
+            var query = "EXEC SP_DESPLEGAR_CITA @P_ID_CITA, @RESULTADO OUTPUT, @CODIGO_ERROR OUTPUT, @DETALLE_ERROR OUTPUT, @DETALLE_USUARIO OUTPUT";
+            var connection = _context.Database.GetDbConnection();
+
+            await connection.OpenAsync();
+
+            try
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+
+                    // Parámetro de entrada
+                    command.Parameters.Add(new SqlParameter("@P_ID_CITA", idCita));
+
+                    // Parámetros de salida
+                    var resultadoParam = new SqlParameter("@RESULTADO", SqlDbType.Bit) { Direction = ParameterDirection.Output };
+                    var codigoErrorParam = new SqlParameter("@CODIGO_ERROR", SqlDbType.Int) { Direction = ParameterDirection.Output };
+                    var detalleErrorParam = new SqlParameter("@DETALLE_ERROR", SqlDbType.NVarChar, 500) { Direction = ParameterDirection.Output };
+                    var detalleUsuarioParam = new SqlParameter("@DETALLE_USUARIO", SqlDbType.NVarChar, 500) { Direction = ParameterDirection.Output };
+
+                    command.Parameters.Add(resultadoParam);
+                    command.Parameters.Add(codigoErrorParam);
+                    command.Parameters.Add(detalleErrorParam);
+                    command.Parameters.Add(detalleUsuarioParam);
+
+                    DesplegarCitaDto? cita = null;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            cita = new DesplegarCitaDto
+                            {
+                                IdCita = reader.GetInt32(reader.GetOrdinal("ID_CITA")),
+                                FechaHoraCita = reader.GetDateTime(reader.GetOrdinal("FECHA_HORA_CITA")),
+                                Descripcion = reader.GetString(reader.GetOrdinal("DESCRIPCION")),
+                                Estado = reader.GetByte(reader.GetOrdinal("ESTADO")),
+                                FechaRegistro = reader.GetDateTime(reader.GetOrdinal("FECHA_REGISTRO")),
+                                Hospital = new HospitalDto
+                                {
+                                    IdHospital = reader.GetInt32(reader.GetOrdinal("ID_HOSPITAL")),
+                                    Nombre = reader.GetString(reader.GetOrdinal("NOMBRE")),
+                                    Direccion = reader.GetString(reader.GetOrdinal("DIRECCION")),
+                                    Telefono = reader.GetString(reader.GetOrdinal("TELEFONO")),
+                                }
+                            };
+                        }
+                    }
+
+                    bool success = resultadoParam.Value != DBNull.Value && (bool)resultadoParam.Value;
+                    int? codigoError = codigoErrorParam.Value != DBNull.Value ? (int?)codigoErrorParam.Value : null;
+                    string detalleError = detalleErrorParam.Value as string ?? string.Empty;
+                    string detalleUsuario = detalleUsuarioParam.Value as string ?? string.Empty;
+
+                    return (success, codigoError, detalleError, detalleUsuario, cita);
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error al ejecutar el procedimiento almacenado SP_DESPLEGAR_CITA: " + ex.Message);
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+
+
 
 
 

@@ -234,6 +234,44 @@ namespace Apis.Controllers
 
 
 
+        [HttpGet("DesplegarCita/{idCita}")]
+        public async Task<IActionResult> DesplegarCita(int idCita)
+        {
+            var res = await _embarazoService.DesplegarCitaAsync(idCita);
+
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle,
+                    cita = res.cita  // Aquí va el objeto DesplegarCitaDto con HospitalDto anidado
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Embarazo/DesplegarCita");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle
+                });
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

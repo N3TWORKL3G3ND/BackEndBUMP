@@ -18,5 +18,6 @@ namespace Application.Interfaces
         Task<ResListarHospitales> ListarHospitalesAsync();
         Task<ResBase> RegistrarCitaAsync(ReqRegistrarCita request, ClaimsPrincipal user);
         Task<ResListarCitas> ListarCitasAsync(ClaimsPrincipal user);
+        Task<ResDesplegarCita> DesplegarCitaAsync(int idCita);
     }
 }

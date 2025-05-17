@@ -464,6 +464,54 @@ namespace Application.Services
 
 
 
+        public async Task<ResDesplegarCita> DesplegarCitaAsync(int idCita)
+        {
+            var res = new ResDesplegarCita
+            {
+                resultado = false,
+                detalle = string.Empty,
+                errores = new List<string>(),
+                cita = null
+            };
+
+            try
+            {
+                var (success, codigoError, detalleError, detalleUsuario, cita) = await _embarazoRepository.DesplegarCitaAsync(idCita);
+
+                if (!success)
+                {
+                    res.errores.Add(ErrorCodigoExtensions.GetDescription(ErrorCodigoExtensions.ObtenerCodigoErrorEnum(codigoError)));
+                    res.detalle = detalleUsuario;
+                    return res;
+                }
+
+                if (cita == null)
+                {
+                    res.errores.Add("No se encontró la cita con el ID proporcionado.");
+                    res.detalle = "La cita solicitada no existe.";
+                    return res;
+                }
+
+                // Respuesta exitosa
+                res.resultado = true;
+                res.detalle = "Cita obtenida exitosamente.";
+                res.cita = cita;
+
+                return res;
+            }
+            catch (SqlException ex)
+            {
+                res.errores.Add($"Error en la base de datos: {ex.Message}");
+                res.detalle = "Ocurrió un error al obtener la cita.";
+                return res;
+            }
+            catch (Exception ex)
+            {
+                res.errores.Add($"Error inesperado: {ex.Message}");
+                res.detalle = "Ocurrió un error inesperado al obtener la cita.";
+                return res;
+            }
+        }
 
 
 
