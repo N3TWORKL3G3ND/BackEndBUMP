@@ -3,12 +3,7 @@ using Domain.DTOs;
 using Domain.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
@@ -114,7 +109,6 @@ namespace Data.Repositories
                             var item = new EmbarazoDto
                             {
                                 IdEmbarazo = reader.GetInt32(reader.GetOrdinal("ID_EMBARAZO")),
-                                IdUsuario = reader.GetInt32(reader.GetOrdinal("ID_USUARIO")),
                                 FechaInicio = reader.GetDateTime(reader.GetOrdinal("FECHA_INICIO")),
                                 FechaEstimadaParto = reader.GetDateTime(reader.GetOrdinal("FECHA_ESTIMADA_PARTO")),
                                 Estado = reader.GetByte(reader.GetOrdinal("ESTADO")),
