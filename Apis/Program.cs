@@ -70,6 +70,8 @@ builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IEmbarazoService, EmbarazoService>();
 builder.Services.AddScoped<IEmbarazoRepository, EmbarazoRepository>();
+builder.Services.AddScoped<ISeguimientoService, SeguimientoService>();
+builder.Services.AddScoped<ISeguimientoRepository, SeguimientoRepository>();
 
 
 builder.Services.AddControllers();
