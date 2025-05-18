@@ -264,6 +264,38 @@ namespace Apis.Controllers
 
 
 
+        [HttpGet("ListarConsejos")]
+        public async Task<IActionResult> ListarConsejos()
+        {
+            // Llamar al método de negocio
+            var res = await _embarazoService.ListarConsejosAsync(User);
+
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle,
+                    res.listaConsejos
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Consejo/ListarConsejos");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle
+                });
+            }
+        }
+
+
+
+
 
 
 

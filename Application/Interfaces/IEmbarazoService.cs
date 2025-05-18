@@ -19,5 +19,6 @@ namespace Application.Interfaces
         Task<ResBase> RegistrarCitaAsync(ReqRegistrarCita request, ClaimsPrincipal user);
         Task<ResListarCitas> ListarCitasAsync(ClaimsPrincipal user);
         Task<ResDesplegarCita> DesplegarCitaAsync(int idCita);
+        Task<ResListarConsejos> ListarConsejosAsync(ClaimsPrincipal user);
     }
 }

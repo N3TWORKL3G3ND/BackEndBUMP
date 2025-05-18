@@ -17,5 +17,6 @@ namespace Domain.Interfaces
         Task<(bool Success, int? CodigoError, string DetalleError, string DetalleUsuario)> RegistrarCitaAsync(Guid sessionGuid, int idHospital, DateTime fechaHoraCita, string descripcion, byte estado);
         Task<(bool Success, int? CodigoError, string DetalleError, string DetalleUsuario, List<CitaDto> ListaCitas)> ListarCitasAsync(Guid sessionGuid);
         Task<(bool Success, int? CodigoError, string DetalleError, string DetalleUsuario, DesplegarCitaDto? Cita)> DesplegarCitaAsync(int idCita);
+        Task<(bool Success, int? CodigoError, string DetalleError, string DetalleUsuario, List<ConsejoDto> ListaConsejos)> ListarConsejosAsync(Guid sessionGuid);
     }
 }

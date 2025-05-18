@@ -515,6 +515,74 @@ namespace Application.Services
 
 
 
+        public async Task<ResListarConsejos> ListarConsejosAsync(ClaimsPrincipal user)
+        {
+            var res = new ResListarConsejos
+            {
+                resultado = false,
+                detalle = string.Empty,
+                errores = new List<string>(),
+                listaConsejos = new List<ConsejoDto>()
+            };
+
+            // 1. Obtener el Session GUID del token
+            Guid sessionGuid;
+            var sessionGuidClaim = user.Claims.FirstOrDefault(c => c.Type == "session_guid")?.Value;
+
+            if (string.IsNullOrWhiteSpace(sessionGuidClaim) || !Guid.TryParse(sessionGuidClaim, out sessionGuid))
+            {
+                res.errores.Add("No se pudo obtener la sesión del usuario actual.");
+                res.detalle = "No se pudo listar los consejos porque no se identificó la sesión.";
+                return res;
+            }
+
+            // 2. Llamar al repositorio
+            try
+            {
+                var (success, codigoError, detalleError, detalleUsuario, listaConsejos) = await _embarazoRepository.ListarConsejosAsync(sessionGuid);
+
+                if (!success)
+                {
+                    res.errores.Add(ErrorCodigoExtensions.GetDescription(ErrorCodigoExtensions.ObtenerCodigoErrorEnum(codigoError)));
+                    res.detalle = detalleUsuario;
+                    return res;
+                }
+
+                // 3. Respuesta exitosa
+                res.resultado = true;
+                res.detalle = "Lista de consejos obtenida exitosamente.";
+                res.listaConsejos = listaConsejos;
+                return res;
+            }
+            catch (SqlException ex)
+            {
+                res.errores.Add($"Error en la base de datos: {ex.Message}");
+                res.detalle = "Ocurrió un error al listar los consejos.";
+                return res;
+            }
+            catch (Exception ex)
+            {
+                res.errores.Add($"Error inesperado: {ex.Message}");
+                res.detalle = "Ocurrió un error inesperado al listar los consejos.";
+                return res;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

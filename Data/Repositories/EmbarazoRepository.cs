@@ -519,6 +519,69 @@ namespace Data.Repositories
 
 
 
+        public async Task<(bool Success, int? CodigoError, string DetalleError, string DetalleUsuario, List<ConsejoDto> ListaConsejos)> ListarConsejosAsync(Guid sessionGuid)
+        {
+            var query = "EXEC SP_LISTAR_CONSEJOS @P_SESSION_GUID, @RESULTADO OUTPUT, @CODIGO_ERROR OUTPUT, @DETALLE_ERROR OUTPUT, @DETALLE_USUARIO OUTPUT";
+            var connection = _context.Database.GetDbConnection();
+
+            await connection.OpenAsync();
+
+            try
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+
+                    // Parámetros de entrada
+                    command.Parameters.Add(new SqlParameter("@P_SESSION_GUID", sessionGuid));
+
+                    // Parámetros de salida
+                    var resultadoParam = new SqlParameter("@RESULTADO", SqlDbType.Bit) { Direction = ParameterDirection.Output };
+                    var codigoErrorParam = new SqlParameter("@CODIGO_ERROR", SqlDbType.Int) { Direction = ParameterDirection.Output };
+                    var detalleErrorParam = new SqlParameter("@DETALLE_ERROR", SqlDbType.NVarChar, 500) { Direction = ParameterDirection.Output };
+                    var detalleUsuarioParam = new SqlParameter("@DETALLE_USUARIO", SqlDbType.NVarChar, 500) { Direction = ParameterDirection.Output };
+
+                    command.Parameters.Add(resultadoParam);
+                    command.Parameters.Add(codigoErrorParam);
+                    command.Parameters.Add(detalleErrorParam);
+                    command.Parameters.Add(detalleUsuarioParam);
+
+                    var listaConsejos = new List<ConsejoDto>();
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            var consejo = new ConsejoDto
+                            {
+                                IdConsejo = reader.GetInt32(reader.GetOrdinal("ID_CONSEJO")),
+                                Titulo = reader.GetString(reader.GetOrdinal("TITULO")),
+                                Descripcion = reader.GetString(reader.GetOrdinal("DESCRIPCION")),
+                                SemanaEmbarazo = reader.GetInt32(reader.GetOrdinal("SEMANA_EMBARAZO"))
+                            };
+
+                            listaConsejos.Add(consejo);
+                        }
+                    }
+
+                    bool success = resultadoParam.Value != DBNull.Value && (bool)resultadoParam.Value;
+                    int? codigoError = codigoErrorParam.Value != DBNull.Value ? (int?)codigoErrorParam.Value : null;
+                    string detalleError = detalleErrorParam.Value as string ?? string.Empty;
+                    string detalleUsuario = detalleUsuarioParam.Value as string ?? string.Empty;
+
+                    return (success, codigoError, detalleError, detalleUsuario, listaConsejos);
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error al ejecutar el procedimiento almacenado: " + ex.Message);
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
 
 
 
