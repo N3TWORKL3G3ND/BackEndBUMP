@@ -12,7 +12,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configurar JWT
+#region Configurar JWT
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -50,10 +50,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             }
         };
     });
+#endregion
 
-// Conexión 1: Base de datos principal
+
+
+#region Conexión 1: Base de datos principal
 builder.Services.AddDbContext<BumpContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("JavierConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("JavierConnectionTest")));
+#endregion
+
 
 
 // Registrar HttpContextAccessor
@@ -61,7 +66,7 @@ builder.Services.AddHttpContextAccessor();
 
 
 
-// Registrar servicios y repositorios
+#region Registrar servicios y repositorios
 builder.Services.AddScoped<ISesionService, SesionService>();
 builder.Services.AddScoped<ISesionRepository, SesionRepository>();
 builder.Services.AddScoped<IEmailService, EmailService>();
@@ -72,6 +77,8 @@ builder.Services.AddScoped<IEmbarazoService, EmbarazoService>();
 builder.Services.AddScoped<IEmbarazoRepository, EmbarazoRepository>();
 builder.Services.AddScoped<ISeguimientoService, SeguimientoService>();
 builder.Services.AddScoped<ISeguimientoRepository, SeguimientoRepository>();
+#endregion
+
 
 
 builder.Services.AddControllers();
