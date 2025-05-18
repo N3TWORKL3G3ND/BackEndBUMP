@@ -1,5 +1,7 @@
 ﻿using Application.Interfaces;
 using Application.Services;
+using Contracts.Requests;
+using Contracts.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -50,6 +52,33 @@ namespace Apis.Controllers
 
 
 
+        [HttpPost("RegistrarSintoma")]
+        public async Task<IActionResult> RegistrarSintoma([FromBody] ReqRegistrarSintoma request)
+        {
+            // Llamar al método de negocio
+            ResBase res = await _seguimientoService.RegistrarSintomaAsync(request, User);
+
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Seguimiento/RegistrarSintoma");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle
+                });
+            }
+        }
 
 
 

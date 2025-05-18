@@ -64,6 +64,9 @@ public enum ErrorCodigo
 
     [Description("No se encontró una cita con el ID proporcionado.")]
     CitaNoEncontrada = 18,
+
+    [Description("No se encontró un síntoma con el ID proporcionado.")]
+    SintomaNoEncontrado = 19,
 }
 
 public static class ErrorCodigoExtensions

@@ -10,5 +10,6 @@ namespace Domain.Interfaces
     public interface ISeguimientoRepository
     {
         Task<(bool Success, int? CodigoError, string DetalleError, string DetalleUsuario, List<SintomaDto> ListaSintomas)> ListarSintomasCatalogoAsync();
+        Task<(bool Success, int? CodigoError, string DetalleError, string DetalleUsuario)> RegistrarSintomaAsync(Guid sessionGuid, int idSintoma, string? notas);
     }
 }
