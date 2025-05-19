@@ -494,6 +494,58 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Registrar eventualidad",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiI2NmRiMzJlNi0zNzJiLTRjZTMtYWU3ZS0yNWI2N2E1NDQzYjIiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiNTRmZWE1NzctYmQzZi00MTA4LWEyYmItODQyZjQ2NTk0M2ZhIiwiZXhwIjoxNzQ3NTk1MDI1LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.Bw3KszcmFN7egd5HaciDKIfFHAXxVliq6de-cC69aC4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5156/Api/Seguimiento/RegistrarEventualidad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"Api",
+								"Seguimiento",
+								"RegistrarEventualidad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registrar contraccion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5156/Api/Seguimiento/RegistrarContraccion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"Api",
+								"Seguimiento",
+								"RegistrarContraccion"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
