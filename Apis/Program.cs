@@ -56,7 +56,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 #region Conexión 1: Base de datos principal
 builder.Services.AddDbContext<BumpContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("JavierConnectionTest")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("JavierConnection")));
 #endregion
 
 

@@ -67,6 +67,12 @@ public enum ErrorCodigo
 
     [Description("No se encontró un síntoma con el ID proporcionado.")]
     SintomaNoEncontrado = 19,
+
+    [Description("Datos requeridos no ingresados o inválidos.")]
+    DatosInvalidos = 20,
+
+    [Description("Gravedad de eventualidad ingresada inválida.")]
+    GravedadEventualidadInvalida = 21,
 }
 
 public static class ErrorCodigoExtensions

@@ -13,5 +13,6 @@ namespace Application.Interfaces
     {
         Task<ResListarSintomas> ListarSintomasCatalogoAsync();
         Task<ResBase> RegistrarSintomaAsync(ReqRegistrarSintoma request, ClaimsPrincipal user);
+        Task<ResBase> RegistrarEventualidadAsync(ReqRegistrarEventualidad request, ClaimsPrincipal user);
     }
 }
