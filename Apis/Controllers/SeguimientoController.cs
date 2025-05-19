@@ -112,7 +112,33 @@ namespace Apis.Controllers
 
 
 
+        [HttpPost("RegistrarContraccion")]
+        public async Task<IActionResult> RegistrarContraccion([FromBody] ReqRegistrarContraccion request)
+        {
+            // Llamar al método de negocio
+            ResBase res = await _seguimientoService.RegistrarContraccionAsync(request, User);
 
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Seguimiento/RegistrarContraccion");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle
+                });
+            }
+        }
 
 
 

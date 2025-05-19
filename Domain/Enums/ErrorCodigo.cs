@@ -73,6 +73,9 @@ public enum ErrorCodigo
 
     [Description("Gravedad de eventualidad ingresada inválida.")]
     GravedadEventualidadInvalida = 21,
+
+    [Description("Intensidad de contracción ingresada inválida.")]
+    IntensidadContraccionInvalida = 22,
 }
 
 public static class ErrorCodigoExtensions
