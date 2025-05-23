@@ -1,0 +1,33 @@
+name: Deploy to Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: instant-medium-460400-h2
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+
+    - name: Build and push Docker image
+      run: |
+        gcloud builds submit --tag gcr.io/instant-medium-460400-h2/mi-api .
+
+    - name: Deploy to Cloud Run
+      run: |
+        gcloud run deploy mi-api \
+          --image gcr.io/instant-medium-460400-h2/mi-api \
+          --platform managed \
+          --region us-central1 \
+          --allow-unauthenticated
