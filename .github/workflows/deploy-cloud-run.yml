@@ -37,4 +37,4 @@ jobs:
           --platform managed \
           --region us-central1 \
           --allow-unauthenticated
-
+          --set-env-vars "ConnectionStrings__DefaultConnection=Server=127.0.0.1,1433;Database=BUMP;User Id=sqlserver;Password=root123;TrustServerCertificate=True;"
