@@ -1,9 +1,13 @@
 name: Deploy to Cloud Run
 
 on:
+  pull_request:
+    branches:
+      - master
   push:
     branches:
-      - main
+      - master
+
 
 jobs:
   build-and-deploy:
