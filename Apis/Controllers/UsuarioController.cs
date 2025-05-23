@@ -1,66 +1,28 @@
 ﻿using Application.Interfaces;
-using Application.Services;
 using Contracts.Requests;
 using Contracts.Responses;
-using Microsoft.AspNetCore.Authorization;
+using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Ocsp;
 
 namespace Apis.Controllers
 {
-
-    [Route("Api/Sesion")]
+    [Route("Api/Usuarios")]
     [ApiController]
-    public class SesionController : ControllerBase
+    public class UsuarioController : ControllerBase
     {
-        private readonly ISesionService _sesionService;
+        private readonly IUsuarioService _usuarioService;
 
-        public SesionController(ISesionService sesionService)
+        public UsuarioController(IUsuarioService usuarioService)
         {
-            _sesionService = sesionService;
+            _usuarioService = usuarioService;
         }
 
-
-
-        [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] ReqLoginUsuario request)
+        [HttpPost("CrearUsuario")]
+        public async Task<IActionResult> CrearUsuario([FromBody] ReqCrearUsuario request)
         {
             // Llamar al método de negocio
-            ResLoginUsuario res = await _sesionService.LoginUsuarioAsync(request);
-
-            if (res.resultado)
-            {
-                return Ok(new
-                {
-                    res.detalle,
-                    res.correoVerificado,
-                    res.token
-                });
-            }
-            else
-            {
-                // Log de errores en consola
-                Console.WriteLine("\nApi/Sesion/Login");
-                foreach (var error in res.errores)
-                {
-                    Console.WriteLine(error);
-                }
-                return BadRequest(new
-                {
-                    res.detalle,
-                    res.correoVerificado,
-                    res.token
-                });
-            }
-        }
-
-
-
-        [Authorize]
-        [HttpPost("Logout")]
-        public async Task<IActionResult> Logout([FromBody] ReqLoginUsuario request)
-        {
-            // Llamar al método de negocio
-            ResBase res = await _sesionService.CerrarSesionAsync();
+            ResBase res = await _usuarioService.CrearUsuarioAsync(request);
 
             if (res.resultado)
             {
@@ -72,7 +34,37 @@ namespace Apis.Controllers
             else
             {
                 // Log de errores en consola
-                Console.WriteLine("\nApi/Sesion/Logout");
+                Console.WriteLine("\nApi/Usuarios/CrearUsuario");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle
+                });
+            }
+        }
+
+
+
+        [HttpPost("ValidarCorreo")]
+        public async Task<IActionResult> ValidarCorreo([FromBody] ReqValidarCorreo request)
+        {
+            // Llamar al método de negocio
+            ResBase res = await _usuarioService.ValidarCorreoAsync(request);
+
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Usuarios/ValidarCorreo");
                 foreach (var error in res.errores)
                 {
                     Console.WriteLine(error);
@@ -121,7 +113,5 @@ namespace Apis.Controllers
 
 
 
-
-
-    }
+    } 
 }
