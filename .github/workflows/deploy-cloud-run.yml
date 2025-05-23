@@ -32,7 +32,7 @@ jobs:
 
     - name: Deploy to Cloud Run
       env:
-        CONNECTION_STRING: "Server=localhost;Database=BUMP;User Id=sqlserver;Password=root123;TrustServerCertificate=True;"
+        CONNECTION_STRING: "Server=34.44.137.57,1433;Database=BUMP;User Id=sqlserver;Password=root123;TrustServerCertificate=True;"
     
       run: |
         gcloud run deploy mi-api \
