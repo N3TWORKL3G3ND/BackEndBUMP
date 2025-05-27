@@ -56,7 +56,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 #region Conexión 1: Base de datos principal
 builder.Services.AddDbContext<BumpContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("GCloudConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("JavierConnection")));
 #endregion
 
 
@@ -88,7 +88,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.Urls.Add("http://0.0.0.0:" + (Environment.GetEnvironmentVariable("PORT") ?? "8080"));
+//app.Urls.Add("http://0.0.0.0:" + (Environment.GetEnvironmentVariable("PORT") ?? "8080"));
 
 
 // Configure the HTTP request pipeline.

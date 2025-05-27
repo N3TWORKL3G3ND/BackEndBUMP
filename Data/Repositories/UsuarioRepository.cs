@@ -130,6 +130,56 @@ namespace Data.Repositories
 
 
 
+        public async Task<(bool Success, string CodigoVerificacion, int? CodigoError, string DetalleError, string DetalleUsuario)> GenerarCodigoVerificacionAsync(string correo)
+        {
+            var query = "EXEC SP_GENERAR_CODIGO_VERIFICACION @P_CORREO, @RESULTADO OUTPUT, @CODIGO_VERIFICACION OUTPUT, @DETALLE_ERROR OUTPUT, @CODIGO_ERROR OUTPUT, @DETALLE_USUARIO OUTPUT";
+            var connection = _context.Database.GetDbConnection();
+
+            await connection.OpenAsync();
+
+            try
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+
+                    // Parámetro de entrada
+                    command.Parameters.Add(new SqlParameter("@P_CORREO", correo));
+
+                    // Parámetros de salida
+                    var resultadoParam = new SqlParameter("@RESULTADO", SqlDbType.Bit) { Direction = ParameterDirection.Output };
+                    var codigoVerificacionParam = new SqlParameter("@CODIGO_VERIFICACION", SqlDbType.NVarChar, 10) { Direction = ParameterDirection.Output };
+                    var detalleErrorParam = new SqlParameter("@DETALLE_ERROR", SqlDbType.NVarChar, 500) { Direction = ParameterDirection.Output };
+                    var codigoErrorParam = new SqlParameter("@CODIGO_ERROR", SqlDbType.Int) { Direction = ParameterDirection.Output };
+                    var detalleUsuarioParam = new SqlParameter("@DETALLE_USUARIO", SqlDbType.NVarChar, 500) { Direction = ParameterDirection.Output };
+
+                    command.Parameters.Add(resultadoParam);
+                    command.Parameters.Add(codigoVerificacionParam);
+                    command.Parameters.Add(detalleErrorParam);
+                    command.Parameters.Add(codigoErrorParam);
+                    command.Parameters.Add(detalleUsuarioParam);
+
+                    await command.ExecuteNonQueryAsync();
+
+                    bool success = (bool)resultadoParam.Value;
+                    string codigoVerificacion = codigoVerificacionParam.Value as string ?? string.Empty;
+                    int? codigoError = codigoErrorParam.Value as int?;
+                    string detalleError = detalleErrorParam.Value as string ?? string.Empty;
+                    string detalleUsuario = detalleUsuarioParam.Value as string ?? string.Empty;
+
+                    return (success, codigoVerificacion, codigoError, detalleError, detalleUsuario);
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error al ejecutar el procedimiento almacenado: " + ex.Message);
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
 
 
 
