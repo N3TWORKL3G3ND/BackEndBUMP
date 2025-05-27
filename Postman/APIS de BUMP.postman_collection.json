@@ -46,7 +46,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"correo\": \"rojascastrojavier13@gmail.com\",\r\n  \"codigoVerificacion\": \"793864855\"\r\n}",
+							"raw": "{\r\n  \"correo\": \"rojascastrojavier13@gmail.com\",\r\n  \"codigoVerificacion\": \"581637757\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -64,6 +64,36 @@
 								"Api",
 								"Usuarios",
 								"ValidarCorreo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generar codigo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"correo\": \"rojascastrojavier13@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/Api/Usuarios/GenerarCodigoVerificacion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"Api",
+								"Usuarios",
+								"GenerarCodigoVerificacion"
 							]
 						}
 					},
@@ -157,7 +187,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiI4ODJmMmNmMy1mN2Q5LTQ4NGUtOWQyNy0zNjdhYjg0N2MwODAiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiMzA0NDIyYjAtYjc1Yy00ZDZmLWFiYzEtYjY1OTNiMzM0MjY1IiwiZXhwIjoxNzQ3MDE2MzkzLCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.6ASXeWT6Nm3MsYuYbUMNRIPiO9XjIqUEX0ztVE3u3_I",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiIxMTAyNDQxYy05YjNhLTQzNzYtOGRiZC02ZjRkNjlkOTY3YjUiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiNzM4MThiZDQtYTNmMS00N2Q3LTllZjItMmIwNDIxYmE5NzRiIiwiZXhwIjoxNzQ3MDMxODc3LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.4xlbJ2zMcX_PFuO1S4uvnSUS_Hm2FFPHLBEifGlO9Ys",
 									"type": "string"
 								}
 							]
@@ -200,7 +230,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiI4ODJmMmNmMy1mN2Q5LTQ4NGUtOWQyNy0zNjdhYjg0N2MwODAiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiMzA0NDIyYjAtYjc1Yy00ZDZmLWFiYzEtYjY1OTNiMzM0MjY1IiwiZXhwIjoxNzQ3MDE2MzkzLCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.6ASXeWT6Nm3MsYuYbUMNRIPiO9XjIqUEX0ztVE3u3_I",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiIwMmNmM2M1ZS1iYmU2LTQxNmYtODUyYy0xNmNhOGExYWZjMTciLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiNGZlMmJlYWItMWUwYy00YWIyLTgyNWYtYWI1YTBlZjgxMmZmIiwiZXhwIjoxNzQ3NTIxMjIwLCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.aHWRvjOf3dfNxIU2qCGfdfA4KzVWKA-QgRfQN4a6eUs",
 									"type": "string"
 								}
 							]
@@ -306,9 +336,31 @@
 				},
 				{
 					"name": "Listar hospitales",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiJhY2I1NDY0ZS0wYzg5LTQzZmEtOWEwYi0yMjcyZmNiMTFmMjAiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiODNkYTJkNGEtMzEwMS00ZTNkLTg1ZjktYjg1YjRkM2YxOWM2IiwiZXhwIjoxNzQ3MDMxMTE1LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.-2Ie6SmGSSo1qVC3HQxJTEpXHIFvM1aKq8dHVvvfMKM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:5156/Api/Embarazo/ListarHospitales",
 							"protocol": "http",
@@ -333,7 +385,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiJhY2I1NDY0ZS0wYzg5LTQzZmEtOWEwYi0yMjcyZmNiMTFmMjAiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiODNkYTJkNGEtMzEwMS00ZTNkLTg1ZjktYjg1YjRkM2YxOWM2IiwiZXhwIjoxNzQ3MDMxMTE1LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.-2Ie6SmGSSo1qVC3HQxJTEpXHIFvM1aKq8dHVvvfMKM",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiIxMTAyNDQxYy05YjNhLTQzNzYtOGRiZC02ZjRkNjlkOTY3YjUiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiNzM4MThiZDQtYTNmMS00N2Q3LTllZjItMmIwNDIxYmE5NzRiIiwiZXhwIjoxNzQ3MDMxODc3LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.4xlbJ2zMcX_PFuO1S4uvnSUS_Hm2FFPHLBEifGlO9Ys",
 									"type": "string"
 								}
 							]
@@ -342,7 +394,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"idEmbarazo\": 1,\r\n  \"idHospital\": 1,\r\n  \"fechaHoraCita\": \"2025-05-12T06:00:00\",\r\n  \"descripcion\": \"Cita de control\",\r\n  \"estado\": 0\r\n}",
+							"raw": "{\r\n  \"idHospital\": 1,\r\n  \"fechaHoraCita\": \"2025-05-12T06:00:00\",\r\n  \"descripcion\": \"Cita de control\",\r\n  \"estado\": 0\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -368,6 +420,16 @@
 				{
 					"name": "Listar citas",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiIwMmNmM2M1ZS1iYmU2LTQxNmYtODUyYy0xNmNhOGExYWZjMTciLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiNGZlMmJlYWItMWUwYy00YWIyLTgyNWYtYWI1YTBlZjgxMmZmIiwiZXhwIjoxNzQ3NTIxMjIwLCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.aHWRvjOf3dfNxIU2qCGfdfA4KzVWKA-QgRfQN4a6eUs",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -389,6 +451,16 @@
 				{
 					"name": "Desplegar cita",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiIwMmNmM2M1ZS1iYmU2LTQxNmYtODUyYy0xNmNhOGExYWZjMTciLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiNGZlMmJlYWItMWUwYy00YWIyLTgyNWYtYWI1YTBlZjgxMmZmIiwiZXhwIjoxNzQ3NTIxMjIwLCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.aHWRvjOf3dfNxIU2qCGfdfA4KzVWKA-QgRfQN4a6eUs",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -411,6 +483,16 @@
 				{
 					"name": "Listar consejos",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiJlOTk0ZTM3Yy0yNjBkLTQxNjAtYThjMi1hMGVmMmVjZWFlMTAiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiOTc5MjJlMjItYmVlNi00ZjI3LTllM2EtZmQ1YmVkOGJjZWQwIiwiZXhwIjoxNzQ3NTM1Nzc3LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.ellyrds3tEOIJUhGUsUTYde43ekTCKyqVCe_-GLqvuw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -437,6 +519,16 @@
 				{
 					"name": "Listar sintomas catalogo",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiI2NmRiMzJlNi0zNzJiLTRjZTMtYWU3ZS0yNWI2N2E1NDQzYjIiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiNTRmZWE1NzctYmQzZi00MTA4LWEyYmItODQyZjQ2NTk0M2ZhIiwiZXhwIjoxNzQ3NTk1MDI1LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.Bw3KszcmFN7egd5HaciDKIfFHAXxVliq6de-cC69aC4",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -503,13 +595,22 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiI2NmRiMzJlNi0zNzJiLTRjZTMtYWU3ZS0yNWI2N2E1NDQzYjIiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiNTRmZWE1NzctYmQzZi00MTA4LWEyYmItODQyZjQ2NTk0M2ZhIiwiZXhwIjoxNzQ3NTk1MDI1LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.Bw3KszcmFN7egd5HaciDKIfFHAXxVliq6de-cC69aC4",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiI4Y2M3ZjAwOC1jYWVmLTRmMzItOTdkMi1iMTc0OTU0NjQzM2QiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiOWY5NTgxMjAtZWMxYy00MDBlLWE5N2MtNGRjMDViMTkwZmI0IiwiZXhwIjoxNzQ3NjI5MzQ0LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.TC8wOalJSsC5WCf4Mh152tHexhPDKY2HLMJ9dfCDVoQ",
 									"type": "string"
 								}
 							]
 						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fechaEventualidad\": \"2025-05-19\",\r\n  \"horaEventualidad\": \"08:30:00\",\r\n  \"descripcion\": \"Prueba de registro de eventualidad\",\r\n  \"gravedad\": 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:5156/Api/Seguimiento/RegistrarEventualidad",
 							"protocol": "http",
@@ -529,8 +630,27 @@
 				{
 					"name": "Registrar contraccion",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiI2NmZiMmIwZS1iNzc1LTQ3NzgtYjYwMS0yZjJjZmJhODc4N2UiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiNmVjZTBhMTMtZWVmMi00YmVkLTkxZjMtOGQ0ZWQ3MWVhZWRmIiwiZXhwIjoxNzQ3NjMzMDgzLCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.8TbjbSRvImxCDwtuzgLnCZ8dPhLwS0QXWTFYjprb2bs",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fechaInicio\": \"2025-05-19\",\r\n  \"horaInicio\": \"08:30:00\",\r\n  \"duracionSegundos\": 90,\r\n  \"intensidad\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:5156/Api/Seguimiento/RegistrarContraccion",
 							"protocol": "http",
