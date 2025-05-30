@@ -174,6 +174,38 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Generar codigo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"correo\": \"rojascastrojavier13@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://mi-api-135144276966.us-central1.run.app/Api/Usuarios/GenerarCodigoVerificacion",
+							"protocol": "https",
+							"host": [
+								"mi-api-135144276966",
+								"us-central1",
+								"run",
+								"app"
+							],
+							"path": [
+								"Api",
+								"Usuarios",
+								"GenerarCodigoVerificacion"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -233,7 +265,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiI4ODJmMmNmMy1mN2Q5LTQ4NGUtOWQyNy0zNjdhYjg0N2MwODAiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiMzA0NDIyYjAtYjc1Yy00ZDZmLWFiYzEtYjY1OTNiMzM0MjY1IiwiZXhwIjoxNzQ3MDE2MzkzLCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.6ASXeWT6Nm3MsYuYbUMNRIPiO9XjIqUEX0ztVE3u3_I",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiJlMDE3M2EyMy01ZjNlLTRiM2YtYmNjNS1iYWQyYzQ3ZDlkMzAiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiODUzY2MwMDgtZGU2MS00OGMzLWFkZDItZGRkMGJhZDY2YmNhIiwiZXhwIjoxNzQ3OTg3MzU2LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.Sp6978YsdB4_naa2AYDDWDBjH1Y7_rho01GUBenvkoQ",
 									"type": "string"
 								}
 							]
@@ -317,7 +349,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiIwMzRhMTc1OC00OGQ4LTQ3YzctODY2Zi00NWIzNGY0ZWExZjgiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiMWQ1YzBmYmItNzlkNi00YWFkLWJiYjUtZTg2YWQyMDg1NDlmIiwiZXhwIjoxNzQ3MDIwNzg0LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.YnIrUqK6Rep6Sr2PbSe5AEqHi96XKXtJ8ov1Sn2s5Nk",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiJlMDE3M2EyMy01ZjNlLTRiM2YtYmNjNS1iYWQyYzQ3ZDlkMzAiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiODUzY2MwMDgtZGU2MS00OGMzLWFkZDItZGRkMGJhZDY2YmNhIiwiZXhwIjoxNzQ3OTg3MzU2LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.Sp6978YsdB4_naa2AYDDWDBjH1Y7_rho01GUBenvkoQ",
 									"type": "string"
 								}
 							]
@@ -325,7 +357,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://mi-api-135144276966.us-central1.run.app/Api/Embarazo/ListarProgresosEmbarazo/2",
+							"raw": "https://mi-api-135144276966.us-central1.run.app/Api/Embarazo/ListarProgresosEmbarazo/1",
 							"protocol": "https",
 							"host": [
 								"mi-api-135144276966",
@@ -337,7 +369,7 @@
 								"Api",
 								"Embarazo",
 								"ListarProgresosEmbarazo",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -346,6 +378,16 @@
 				{
 					"name": "Listar hospitales",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiJlMDE3M2EyMy01ZjNlLTRiM2YtYmNjNS1iYWQyYzQ3ZDlkMzAiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiODUzY2MwMDgtZGU2MS00OGMzLWFkZDItZGRkMGJhZDY2YmNhIiwiZXhwIjoxNzQ3OTg3MzU2LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.Sp6978YsdB4_naa2AYDDWDBjH1Y7_rho01GUBenvkoQ",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
