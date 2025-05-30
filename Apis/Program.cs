@@ -89,10 +89,7 @@ builder.Services.AddScoped<ISeguimientoRepository, SeguimientoRepository>();
 
 var app = builder.Build();
 
-if (app.Environment.IsProduction())
-{
-    app.Urls.Add("http://0.0.0.0:" + (Environment.GetEnvironmentVariable("PORT") ?? "8080"));
-}
+//app.Urls.Add("http://0.0.0.0:" + (Environment.GetEnvironmentVariable("PORT") ?? "8080"));
 
 
 
