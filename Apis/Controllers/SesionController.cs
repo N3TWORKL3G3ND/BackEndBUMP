@@ -30,7 +30,7 @@ namespace Apis.Controllers
         {
             try
             {
-                using var conn = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+                using var conn = new SqlConnection(_configuration.GetConnectionString("GCloudConnection"));
                 conn.Open();
                 return Ok("¡Conexión exitosa!");
             }
