@@ -10,6 +10,5 @@ namespace Domain.Interfaces
     {
         Task<(bool Success, string CodigoVerificacion, int? CodigoError, string DetalleError, string DetalleUsuario)> CrearUsuarioAsync(string nombreUsuario, string nombreCompleto, string correo, string contrasena);
         Task<(bool success, int? codigoError, string detalleError, string detalleUsuario)> ValidarCodigoVerificacionAsync(string correo, string codigoVerificacion);
-        Task<(bool Success, string CodigoVerificacion, int? CodigoError, string DetalleError, string DetalleUsuario)> GenerarCodigoVerificacionAsync(string correo);
     }
 }
