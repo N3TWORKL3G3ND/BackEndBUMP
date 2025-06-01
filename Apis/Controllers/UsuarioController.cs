@@ -78,6 +78,26 @@ namespace Apis.Controllers
 
 
 
+        [HttpPost("GenerarCodigoVerificacion")]
+        public async Task<IActionResult> GenerarCodigoVerificacion([FromBody] ReqGenerarCodigo request)
+        {
+            ResBase res = await _usuarioService.GenerarCodigoVerificacionAsync(request);
+
+            if (res.resultado)
+            {
+                return Ok(new { res.detalle });
+            }
+            else
+            {
+                Console.WriteLine("\nApi/Usuarios/GenerarCodigoVerificacion");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+
+                return BadRequest(new { res.detalle });
+            }
+        }
 
 
 
@@ -113,5 +133,8 @@ namespace Apis.Controllers
 
 
 
-    } 
+
+
+
+    }
 }
