@@ -41,4 +41,4 @@ jobs:
           --region us-central1 \
           --add-cloudsql-instances=instant-medium-460400-h2:us-central1:bump \
           --allow-unauthenticated \
-          --set-env-vars ConnectionStrings__DefaultConnection="$CONNECTION_STRING"
+          --set-env-vars ConnectionStrings__DefaultConnection="$CONNECTION_STRING",ASPNETCORE_ENVIRONMENT=Production
