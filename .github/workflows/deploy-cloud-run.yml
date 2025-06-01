@@ -31,14 +31,12 @@ jobs:
       run: gcloud builds submit --tag gcr.io/instant-medium-460400-h2/mi-api .
 
     - name: Deploy to Cloud Run
-      env:
-        CONNECTION_STRING: "Server=34.44.137.57,1433;Database=BUMP;User Id=sqlserver;Password=root123;TrustServerCertificate=True;"
     
       run: |
         gcloud run deploy mi-api \
           --image gcr.io/instant-medium-460400-h2/mi-api \
           --platform managed \
           --region us-central1 \
-          --add-cloudsql-instances=instant-medium-460400-h2:us-central1:bump \
           --allow-unauthenticated \
-          --set-env-vars ConnectionStrings__DefaultConnection="$CONNECTION_STRING",ASPNETCORE_ENVIRONMENT=Production
+          --port 8080 \
+          --set-env-vars ASPNETCORE_ENVIRONMENT=Production
