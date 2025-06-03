@@ -98,6 +98,36 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Restablecer contrasena",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"correo\": \"rojascastrojavier13@gmail.com\",\r\n  \"codigoVerificacion\": \"272222599\",\r\n  \"nuevaContrasena\": \"root1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5156/Api/Usuarios/RestablecerContrasena",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"Api",
+								"Usuarios",
+								"RestablecerContrasena"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -111,7 +141,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"correo\": \"rojascastrojavier13@gmail.com\",\r\n  \"contrasena\": \"root123\"\r\n}",
+							"raw": "{\r\n  \"correo\": \"rojascastrojavier13@gmail.com\",\r\n  \"contrasena\": \"root1234\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -169,6 +199,27 @@
 								"Api",
 								"Sesion",
 								"Logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test db",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5156/Api/Sesion/test-db",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5156",
+							"path": [
+								"Api",
+								"Sesion",
+								"test-db"
 							]
 						}
 					},

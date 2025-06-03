@@ -206,6 +206,38 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Restablecer contrasena",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"correo\": \"rojascastrojavier13@gmail.com\",\r\n  \"codigoVerificacion\": \"486444741\",\r\n  \"nuevaContrasena\": \"root123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://mi-api-135144276966.us-central1.run.app/Api/Usuarios/RestablecerContrasena",
+							"protocol": "https",
+							"host": [
+								"mi-api-135144276966",
+								"us-central1",
+								"run",
+								"app"
+							],
+							"path": [
+								"Api",
+								"Usuarios",
+								"RestablecerContrasena"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
