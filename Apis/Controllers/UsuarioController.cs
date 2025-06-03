@@ -18,6 +18,8 @@ namespace Apis.Controllers
             _usuarioService = usuarioService;
         }
 
+
+
         [HttpPost("CrearUsuario")]
         public async Task<IActionResult> CrearUsuario([FromBody] ReqCrearUsuario request)
         {
@@ -101,7 +103,26 @@ namespace Apis.Controllers
 
 
 
+        [HttpPost("RestablecerContrasena")]
+        public async Task<IActionResult> RestablecerContrasena([FromBody] ReqRestablecerContrasena request)
+        {
+            ResBase res = await _usuarioService.RestablecerContrasenaAsync(request);
 
+            if (res.resultado)
+            {
+                return Ok(new { res.detalle });
+            }
+            else
+            {
+                Console.WriteLine("\nApi/Usuarios/RestablecerContrasena");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+
+                return BadRequest(new { res.detalle });
+            }
+        }
 
 
 

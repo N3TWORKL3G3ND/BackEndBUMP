@@ -23,7 +23,7 @@ public enum ErrorCodigo
     [Description("Ocurrio un error al intentar llamar a un procedimiento almacenado del sistema.")]
     ErrorProcedimientoAlmacenado = 4,
 
-    [Description("El correo no está registrado.")]
+    [Description("No existe una cuenta registrada con ese correo.")]
     CorreoNoEncontrado = 5,
 
     [Description("La contraseña es incorrecta.")]
@@ -76,6 +76,9 @@ public enum ErrorCodigo
 
     [Description("Intensidad de contracción ingresada inválida.")]
     IntensidadContraccionInvalida = 22,
+
+    [Description("No hay un código de verificación activo para este usuario.")]
+    CodigoVerificacionNoEncontrado = 23,
 }
 
 public static class ErrorCodigoExtensions

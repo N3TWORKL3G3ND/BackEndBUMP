@@ -270,6 +270,71 @@ namespace Application.Services
 
 
 
+        public async Task<ResBase> RestablecerContrasenaAsync(ReqRestablecerContrasena req)
+        {
+            var res = new ResBase
+            {
+                resultado = false,
+                detalle = string.Empty,
+                errores = new List<string>()
+            };
+
+            // 0. Validar entrada
+            if (string.IsNullOrWhiteSpace(req.Correo))
+                res.errores.Add("El correo es obligatorio.");
+
+            if (string.IsNullOrWhiteSpace(req.CodigoVerificacion))
+                res.errores.Add("El código de verificación es obligatorio.");
+
+            if (string.IsNullOrWhiteSpace(req.NuevaContrasena))
+                res.errores.Add("La nueva contraseña es obligatoria.");
+
+            if (req.Correo?.Length > 100)
+                res.errores.Add("El correo no puede exceder los 100 caracteres.");
+
+            if (!Regex.IsMatch(req.Correo ?? "", @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                res.errores.Add("El correo debe ser válido.");
+
+            if (req.NuevaContrasena?.Length > 100)
+                res.errores.Add("La contraseña no puede exceder los 100 caracteres.");
+
+            if (res.errores.Count > 0)
+            {
+                res.detalle = "Errores de validación en los datos ingresados.";
+                return res;
+            }
+
+            // 1. Llamar al procedimiento almacenado
+            try
+            {
+                var (success, codigoError, detalleError, detalleUsuario) =
+                    await _usuarioRepository.RestablecerContrasenaAsync(req.Correo, req.CodigoVerificacion, req.NuevaContrasena);
+
+                if (!success)
+                {
+                    res.errores.Add(ErrorCodigoExtensions.GetDescription(ErrorCodigoExtensions.ObtenerCodigoErrorEnum(codigoError)));
+                    res.detalle = detalleUsuario;
+                    return res;
+                }
+
+                // 2. Éxito
+                res.resultado = true;
+                res.detalle = detalleUsuario;
+                return res;
+            }
+            catch (SqlException ex)
+            {
+                res.errores.Add($"Error en la base de datos: {ex.Message}");
+                res.detalle = "Ocurrió un error al restablecer la contraseña.";
+                return res;
+            }
+            catch (Exception ex)
+            {
+                res.errores.Add($"Error inesperado: {ex.Message}");
+                res.detalle = "Ocurrió un error inesperado al restablecer la contraseña.";
+                return res;
+            }
+        }
 
 
 

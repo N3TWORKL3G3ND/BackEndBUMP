@@ -8,5 +8,6 @@ namespace Application.Interfaces
         Task<ResBase> CrearUsuarioAsync(ReqCrearUsuario request);
         Task<ResBase> ValidarCorreoAsync(ReqValidarCorreo request);
         Task<ResBase> GenerarCodigoVerificacionAsync(ReqGenerarCodigo req);
+        Task<ResBase> RestablecerContrasenaAsync(ReqRestablecerContrasena req);
     }
 }
