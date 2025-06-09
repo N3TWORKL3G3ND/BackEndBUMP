@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,6 @@ namespace Domain.Interfaces
         Task<(bool success, int? codigoError, string detalleError, string detalleUsuario)> ValidarCodigoVerificacionAsync(string correo, string codigoVerificacion);
         Task<(bool Success, string CodigoVerificacion, int? CodigoError, string DetalleError, string DetalleUsuario)> GenerarCodigoVerificacionAsync(string correo);
         Task<(bool Success, int? CodigoError, string DetalleError, string DetalleUsuario)> RestablecerContrasenaAsync(string correo, string codigoVerificacion, string nuevaContrasena);
+        Task<(bool Success, int? CodigoError, string DetalleError, string DetalleUsuario, DatosUsuarioDto? DatosUsuario)> ObtenerDatosUsuarioAsync(Guid sessionGuid);
     }
 }
