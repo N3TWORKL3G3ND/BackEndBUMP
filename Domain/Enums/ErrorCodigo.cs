@@ -79,6 +79,9 @@ public enum ErrorCodigo
 
     [Description("No hay un código de verificación activo para este usuario.")]
     CodigoVerificacionNoEncontrado = 23,
+
+    [Description("El usuario asociado a la sesión no existe..")]
+    UsuarioNoEncontrado = 24,
 }
 
 public static class ErrorCodigoExtensions

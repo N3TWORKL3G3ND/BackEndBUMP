@@ -238,6 +238,72 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Obtener datos usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiJlNDQzYTgwZi0xZTU3LTQ0Y2UtYjljMy1mN2UzZDlhZjM5ZmQiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiNjQwMTZkOWMtMzlkMC00M2ZjLWE1OWQtOGZiNGE4ZGM5ZDMzIiwiZXhwIjoxNzQ5NTAwNjI0LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.nbxItHQSdzs4a4jn5RaS_tj70pfNDC9G9_1Y7o4P3ws",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mi-api-135144276966.us-central1.run.app/Api/Usuarios/ObtenerDatosUsuario",
+							"protocol": "https",
+							"host": [
+								"mi-api-135144276966",
+								"us-central1",
+								"run",
+								"app"
+							],
+							"path": [
+								"Api",
+								"Usuarios",
+								"ObtenerDatosUsuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener datos usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiJlNDQzYTgwZi0xZTU3LTQ0Y2UtYjljMy1mN2UzZDlhZjM5ZmQiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiNjQwMTZkOWMtMzlkMC00M2ZjLWE1OWQtOGZiNGE4ZGM5ZDMzIiwiZXhwIjoxNzQ5NTAwNjI0LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.nbxItHQSdzs4a4jn5RaS_tj70pfNDC9G9_1Y7o4P3ws",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mi-api-135144276966.us-central1.run.app/Api/Usuarios/ObtenerDatosUsuario",
+							"protocol": "https",
+							"host": [
+								"mi-api-135144276966",
+								"us-central1",
+								"run",
+								"app"
+							],
+							"path": [
+								"Api",
+								"Usuarios",
+								"ObtenerDatosUsuario"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

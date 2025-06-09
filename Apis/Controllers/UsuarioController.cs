@@ -1,7 +1,9 @@
 ﻿using Application.Interfaces;
+using Application.Services;
 using Contracts.Requests;
 using Contracts.Responses;
 using Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Org.BouncyCastle.Ocsp;
 
@@ -126,6 +128,35 @@ namespace Apis.Controllers
 
 
 
+        [Authorize]
+        [HttpGet("ObtenerDatosUsuario")]
+        public async Task<IActionResult> ObtenerDatosUsuario()
+        {
+            // Llamar al método de negocio
+            var res = await _usuarioService.ObtenerDatosUsuarioAsync(User);
+
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle,
+                    res.datosUsuario
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Usuarios/ObtenerDatosUsuario");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle
+                });
+            }
+        }
 
 
 
