@@ -15,5 +15,8 @@ namespace Application.Interfaces
         Task<ResBase> RegistrarSintomaAsync(ReqRegistrarSintoma request, ClaimsPrincipal user);
         Task<ResBase> RegistrarEventualidadAsync(ReqRegistrarEventualidad request, ClaimsPrincipal user);
         Task<ResBase> RegistrarContraccionAsync(ReqRegistrarContraccion request, ClaimsPrincipal user);
+        Task<ResListarContracciones> ListarContraccionesAsync(ClaimsPrincipal user);
+        Task<ResListarEventualidades> ListarEventualidadesAsync(ClaimsPrincipal user);
+        Task<ResListarRegistroSintomas> ListarRegistroSintomasAsync(ClaimsPrincipal user);
     }
 }

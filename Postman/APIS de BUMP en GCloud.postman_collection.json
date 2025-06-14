@@ -214,7 +214,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"correo\": \"rojascastrojavier13@gmail.com\",\r\n  \"codigoVerificacion\": \"486444741\",\r\n  \"nuevaContrasena\": \"root123\"\r\n}",
+							"raw": "{\r\n  \"correo\": \"\",\r\n  \"codigoVerificacion\": \"48644471\",\r\n  \"nuevaContrasena\": \"root123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -247,7 +247,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiJlNDQzYTgwZi0xZTU3LTQ0Y2UtYjljMy1mN2UzZDlhZjM5ZmQiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiNjQwMTZkOWMtMzlkMC00M2ZjLWE1OWQtOGZiNGE4ZGM5ZDMzIiwiZXhwIjoxNzQ5NTAwNjI0LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.nbxItHQSdzs4a4jn5RaS_tj70pfNDC9G9_1Y7o4P3ws",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiJjYTFmODZjOS01ODdiLTRkYTctYTc5Yi1kNWQwZTA3NTM3MzUiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiN2JkNjc4ZTctYzlhNi00MDc1LWI0MzEtNWUwZDMzNTMzMmQ4IiwiZXhwIjoxNzQ5NTAxMjY4LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.TTaI9eD-7XTe8kXyh9PcL6MBueo-mOdleKhV-L4AWfg",
 									"type": "string"
 								}
 							]
@@ -739,6 +739,138 @@
 								"Api",
 								"Seguimiento",
 								"RegistrarContraccion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar contracciones",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiIyN2VhMDljMi1hMzFjLTQ5ODgtOWViNS0zMjBhNzA1MjUyZmIiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiMzBjYmFmNTItYTBmMC00ZTMxLWFlMGUtZTI3MmQxNDhhNTE3IiwiZXhwIjoxNzQ5OTQxNzM3LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.VlYp7WljQFVn4Trlu5k7751NIJfbyhXndEKiNPy8Z1g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mi-api-135144276966.us-central1.run.app/Api/Seguimiento/ListarContracciones",
+							"protocol": "https",
+							"host": [
+								"mi-api-135144276966",
+								"us-central1",
+								"run",
+								"app"
+							],
+							"path": [
+								"Api",
+								"Seguimiento",
+								"ListarContracciones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar eventualidades",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiIyN2VhMDljMi1hMzFjLTQ5ODgtOWViNS0zMjBhNzA1MjUyZmIiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiMzBjYmFmNTItYTBmMC00ZTMxLWFlMGUtZTI3MmQxNDhhNTE3IiwiZXhwIjoxNzQ5OTQxNzM3LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.VlYp7WljQFVn4Trlu5k7751NIJfbyhXndEKiNPy8Z1g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mi-api-135144276966.us-central1.run.app/Api/Seguimiento/ListarEventualidades",
+							"protocol": "https",
+							"host": [
+								"mi-api-135144276966",
+								"us-central1",
+								"run",
+								"app"
+							],
+							"path": [
+								"Api",
+								"Seguimiento",
+								"ListarEventualidades"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar registro de sintomas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiIyN2VhMDljMi1hMzFjLTQ5ODgtOWViNS0zMjBhNzA1MjUyZmIiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiMzBjYmFmNTItYTBmMC00ZTMxLWFlMGUtZTI3MmQxNDhhNTE3IiwiZXhwIjoxNzQ5OTQxNzM3LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.VlYp7WljQFVn4Trlu5k7751NIJfbyhXndEKiNPy8Z1g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mi-api-135144276966.us-central1.run.app/Api/Seguimiento/ListarRegistroSintomas",
+							"protocol": "https",
+							"host": [
+								"mi-api-135144276966",
+								"us-central1",
+								"run",
+								"app"
+							],
+							"path": [
+								"Api",
+								"Seguimiento",
+								"ListarRegistroSintomas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar registro de sintomas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiIyN2VhMDljMi1hMzFjLTQ5ODgtOWViNS0zMjBhNzA1MjUyZmIiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiMzBjYmFmNTItYTBmMC00ZTMxLWFlMGUtZTI3MmQxNDhhNTE3IiwiZXhwIjoxNzQ5OTQxNzM3LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.VlYp7WljQFVn4Trlu5k7751NIJfbyhXndEKiNPy8Z1g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://mi-api-135144276966.us-central1.run.app/Api/Seguimiento/ListarRegistroSintomas",
+							"protocol": "https",
+							"host": [
+								"mi-api-135144276966",
+								"us-central1",
+								"run",
+								"app"
+							],
+							"path": [
+								"Api",
+								"Seguimiento",
+								"ListarRegistroSintomas"
 							]
 						}
 					},

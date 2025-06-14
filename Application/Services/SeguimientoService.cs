@@ -317,6 +317,173 @@ namespace Application.Services
 
 
 
+        public async Task<ResListarContracciones> ListarContraccionesAsync(ClaimsPrincipal user)
+        {
+            var res = new ResListarContracciones
+            {
+                resultado = false,
+                detalle = string.Empty,
+                errores = new List<string>(),
+                listaContracciones = new List<ContraccionDto>()
+            };
+
+            // 2. Obtener el Session GUID del token
+            Guid sessionGuid;
+            var sessionGuidClaim = user.Claims.FirstOrDefault(c => c.Type == "session_guid")?.Value;
+
+            if (string.IsNullOrWhiteSpace(sessionGuidClaim) || !Guid.TryParse(sessionGuidClaim, out sessionGuid))
+            {
+                res.errores.Add("No se pudo obtener la sesión del usuario actual.");
+                res.detalle = "No se pudo registrar la eventualidad porque no se identificó la sesión.";
+                return res;
+            }
+
+            try
+            {
+                // Llamar al repositorio
+                var (success, codigoError, detalleError, detalleUsuario, listaContracciones) =
+                    await _seguimientoRepository.ListarContraccionesAsync(sessionGuid);
+
+                if (!success)
+                {
+                    res.errores.Add(ErrorCodigoExtensions.GetDescription(
+                        ErrorCodigoExtensions.ObtenerCodigoErrorEnum(codigoError)));
+
+                    res.detalle = detalleUsuario;
+                    return res;
+                }
+
+                // Respuesta exitosa
+                res.resultado = true;
+                res.detalle = "Lista de contracciones obtenida exitosamente.";
+                res.listaContracciones = listaContracciones;
+                return res;
+            }
+            catch (SqlException ex)
+            {
+                res.errores.Add($"Error en la base de datos: {ex.Message}");
+                res.detalle = "Ocurrió un error al listar las contracciones.";
+                return res;
+            }
+            catch (Exception ex)
+            {
+                res.errores.Add($"Error inesperado: {ex.Message}");
+                res.detalle = "Ocurrió un error inesperado al listar las contracciones.";
+                return res;
+            }
+        }
+
+
+
+        public async Task<ResListarEventualidades> ListarEventualidadesAsync(ClaimsPrincipal user)
+        {
+            var res = new ResListarEventualidades
+            {
+                resultado = false,
+                detalle = string.Empty,
+                errores = new List<string>(),
+                listaEventualidades = new List<EventualidadDto>()
+            };
+
+            // 2. Obtener el Session GUID del token
+            Guid sessionGuid;
+            var sessionGuidClaim = user.Claims.FirstOrDefault(c => c.Type == "session_guid")?.Value;
+
+            if (string.IsNullOrWhiteSpace(sessionGuidClaim) || !Guid.TryParse(sessionGuidClaim, out sessionGuid))
+            {
+                res.errores.Add("No se pudo obtener la sesión del usuario actual.");
+                res.detalle = "No se pudo registrar la eventualidad porque no se identificó la sesión.";
+                return res;
+            }
+
+            try
+            {
+                // Llamar al repositorio
+                var (success, codigoError, detalleError, detalleUsuario, listaEventualidades) =
+                    await _seguimientoRepository.ListarEventualidadesAsync(sessionGuid);
+
+                if (!success)
+                {
+                    var codigoEnum = ErrorCodigoExtensions.ObtenerCodigoErrorEnum(codigoError ?? -1);
+                    res.errores.Add(ErrorCodigoExtensions.GetDescription(codigoEnum));
+                    res.detalle = detalleUsuario;
+                    return res;
+                }
+
+                // Respuesta exitosa
+                res.resultado = true;
+                res.detalle = "Lista de eventualidades obtenida exitosamente.";
+                res.listaEventualidades = listaEventualidades;
+                return res;
+            }
+            catch (SqlException ex)
+            {
+                res.errores.Add($"Error en la base de datos: {ex.Message}");
+                res.detalle = "Ocurrió un error al listar las eventualidades.";
+                return res;
+            }
+            catch (Exception ex)
+            {
+                res.errores.Add($"Error inesperado: {ex.Message}");
+                res.detalle = "Ocurrió un error inesperado al listar las eventualidades.";
+                return res;
+            }
+        }
+
+
+
+        public async Task<ResListarRegistroSintomas> ListarRegistroSintomasAsync(ClaimsPrincipal user)
+        {
+            var res = new ResListarRegistroSintomas
+            {
+                resultado = false,
+                detalle = string.Empty,
+                errores = new List<string>(),
+                listaRegistroSintomas = new List<RegistroSintomaDto>()
+            };
+
+            // 2. Obtener el Session GUID del token
+            Guid sessionGuid;
+            var sessionGuidClaim = user.Claims.FirstOrDefault(c => c.Type == "session_guid")?.Value;
+
+            if (string.IsNullOrWhiteSpace(sessionGuidClaim) || !Guid.TryParse(sessionGuidClaim, out sessionGuid))
+            {
+                res.errores.Add("No se pudo obtener la sesión del usuario actual.");
+                res.detalle = "No se pudo registrar la eventualidad porque no se identificó la sesión.";
+                return res;
+            }
+
+            try
+            {
+                var (success, codigoError, detalleError, detalleUsuario, listaRegistroSintomas) =
+                    await _seguimientoRepository.ListarRegistroSintomasAsync(sessionGuid);
+
+                if (!success)
+                {
+                    var codigoEnum = ErrorCodigoExtensions.ObtenerCodigoErrorEnum(codigoError ?? -1);
+                    res.errores.Add(ErrorCodigoExtensions.GetDescription(codigoEnum));
+                    res.detalle = detalleUsuario;
+                    return res;
+                }
+
+                res.resultado = true;
+                res.detalle = "Lista de síntomas registrados obtenida exitosamente.";
+                res.listaRegistroSintomas = listaRegistroSintomas;
+                return res;
+            }
+            catch (SqlException ex)
+            {
+                res.errores.Add($"Error en la base de datos: {ex.Message}");
+                res.detalle = "Ocurrió un error al listar los síntomas registrados.";
+                return res;
+            }
+            catch (Exception ex)
+            {
+                res.errores.Add($"Error inesperado: {ex.Message}");
+                res.detalle = "Ocurrió un error inesperado al listar los síntomas registrados.";
+                return res;
+            }
+        }
 
 
 
