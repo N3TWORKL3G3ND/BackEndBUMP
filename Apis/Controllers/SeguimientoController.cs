@@ -142,6 +142,113 @@ namespace Apis.Controllers
 
 
 
+        [HttpGet("ListarContracciones")]
+        public async Task<IActionResult> ListarContracciones()
+        {
+            // Llamar al método de negocio
+            var res = await _seguimientoService.ListarContraccionesAsync(User);
+
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle,
+                    res.listaContracciones
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Seguimiento/ListarContracciones");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle,
+                    res.errores
+                });
+            }
+        }
+
+
+
+        [HttpGet("ListarEventualidades")]
+        public async Task<IActionResult> ListarEventualidades()
+        {
+            // Llamar al método de negocio
+            var res = await _seguimientoService.ListarEventualidadesAsync(User);
+
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle,
+                    res.listaEventualidades
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Seguimiento/ListarEventualidades");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle,
+                    res.errores
+                });
+            }
+        }
+
+
+
+        [HttpGet("ListarRegistroSintomas")]
+        public async Task<IActionResult> ListarRegistroSintomas()
+        {
+            // Llamar al método de negocio
+            var res = await _seguimientoService.ListarRegistroSintomasAsync(User);
+
+            if (res.resultado)
+            {
+                return Ok(new
+                {
+                    res.detalle,
+                    res.listaRegistroSintomas
+                });
+            }
+            else
+            {
+                // Log de errores en consola
+                Console.WriteLine("\nApi/Seguimiento/ListarRegistroSintomas");
+                foreach (var error in res.errores)
+                {
+                    Console.WriteLine(error);
+                }
+                return BadRequest(new
+                {
+                    res.detalle,
+                    res.errores
+                });
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
