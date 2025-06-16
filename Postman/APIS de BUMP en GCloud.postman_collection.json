@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"correo\": \"rojascastrojavier13@gmail.com\",\r\n  \"contrasena\": \"root123\"\r\n}",
+							"raw": "{\r\n  \"correo\": \"rojascastrojavier13@gmail.com\",\r\n  \"contrasena\": \"Rootroot1234\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -248,39 +248,6 @@
 								{
 									"key": "token",
 									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiJjYTFmODZjOS01ODdiLTRkYTctYTc5Yi1kNWQwZTA3NTM3MzUiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiN2JkNjc4ZTctYzlhNi00MDc1LWI0MzEtNWUwZDMzNTMzMmQ4IiwiZXhwIjoxNzQ5NTAxMjY4LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.TTaI9eD-7XTe8kXyh9PcL6MBueo-mOdleKhV-L4AWfg",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://mi-api-135144276966.us-central1.run.app/Api/Usuarios/ObtenerDatosUsuario",
-							"protocol": "https",
-							"host": [
-								"mi-api-135144276966",
-								"us-central1",
-								"run",
-								"app"
-							],
-							"path": [
-								"Api",
-								"Usuarios",
-								"ObtenerDatosUsuario"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Obtener datos usuario",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiJlNDQzYTgwZi0xZTU3LTQ0Y2UtYjljMy1mN2UzZDlhZjM5ZmQiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiNjQwMTZkOWMtMzlkMC00M2ZjLWE1OWQtOGZiNGE4ZGM5ZDMzIiwiZXhwIjoxNzQ5NTAwNjI0LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.nbxItHQSdzs4a4jn5RaS_tj70pfNDC9G9_1Y7o4P3ws",
 									"type": "string"
 								}
 							]
@@ -703,6 +670,15 @@
 						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fechaEventualidad\": \"2025-05-19\",\r\n  \"horaEventualidad\": \"08:30:00\",\r\n  \"descripcion\": \"Prueba de registro de eventualidad\",\r\n  \"gravedad\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "https://mi-api-135144276966.us-central1.run.app/Api/Seguimiento/RegistrarEventualidad",
 							"protocol": "https",
@@ -726,6 +702,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fechaInicio\": \"2025-05-19\",\r\n  \"horaInicio\": \"08:30:00\",\r\n  \"duracionSegundos\": 90,\r\n  \"intensidad\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "https://mi-api-135144276966.us-central1.run.app/Api/Seguimiento/RegistrarContraccion",
 							"protocol": "https",
@@ -752,7 +737,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiIyN2VhMDljMi1hMzFjLTQ5ODgtOWViNS0zMjBhNzA1MjUyZmIiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiMzBjYmFmNTItYTBmMC00ZTMxLWFlMGUtZTI3MmQxNDhhNTE3IiwiZXhwIjoxNzQ5OTQxNzM3LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.VlYp7WljQFVn4Trlu5k7751NIJfbyhXndEKiNPy8Z1g",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiIyOTZmNTE4Ni05NjFjLTQyYjMtYjYxMS0yZTM2YjkxZTAyMjciLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiMTE0ODMzNDgtOTU4OS00YmE5LTg5ZWQtNDMxYWVjMzdlOWNlIiwiZXhwIjoxNzQ5OTQyNTc4LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.2xyiAHSuG_itHOkaFzQoodccFHuJogZfxOT5-EGOtxI",
 									"type": "string"
 								}
 							]
@@ -785,7 +770,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiIyN2VhMDljMi1hMzFjLTQ5ODgtOWViNS0zMjBhNzA1MjUyZmIiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiMzBjYmFmNTItYTBmMC00ZTMxLWFlMGUtZTI3MmQxNDhhNTE3IiwiZXhwIjoxNzQ5OTQxNzM3LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.VlYp7WljQFVn4Trlu5k7751NIJfbyhXndEKiNPy8Z1g",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiIyOTZmNTE4Ni05NjFjLTQyYjMtYjYxMS0yZTM2YjkxZTAyMjciLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiMTE0ODMzNDgtOTU4OS00YmE5LTg5ZWQtNDMxYWVjMzdlOWNlIiwiZXhwIjoxNzQ5OTQyNTc4LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.2xyiAHSuG_itHOkaFzQoodccFHuJogZfxOT5-EGOtxI",
 									"type": "string"
 								}
 							]
@@ -818,40 +803,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiIyN2VhMDljMi1hMzFjLTQ5ODgtOWViNS0zMjBhNzA1MjUyZmIiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiMzBjYmFmNTItYTBmMC00ZTMxLWFlMGUtZTI3MmQxNDhhNTE3IiwiZXhwIjoxNzQ5OTQxNzM3LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.VlYp7WljQFVn4Trlu5k7751NIJfbyhXndEKiNPy8Z1g",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://mi-api-135144276966.us-central1.run.app/Api/Seguimiento/ListarRegistroSintomas",
-							"protocol": "https",
-							"host": [
-								"mi-api-135144276966",
-								"us-central1",
-								"run",
-								"app"
-							],
-							"path": [
-								"Api",
-								"Seguimiento",
-								"ListarRegistroSintomas"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Listar registro de sintomas",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiIyN2VhMDljMi1hMzFjLTQ5ODgtOWViNS0zMjBhNzA1MjUyZmIiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiMzBjYmFmNTItYTBmMC00ZTMxLWFlMGUtZTI3MmQxNDhhNTE3IiwiZXhwIjoxNzQ5OTQxNzM3LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.VlYp7WljQFVn4Trlu5k7751NIJfbyhXndEKiNPy8Z1g",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2d1aWQiOiJkMzg5ZGUyZS0zM2YwLTQ2MTYtYjc3ZS0yMTQyOTU2N2NmMzQiLCJuYW1lIjoiSmF2aWVyUkMiLCJlbWFpbCI6InJvamFzY2FzdHJvamF2aWVyMTNAZ21haWwuY29tIiwianRpIjoiMGJiMDRkNDctZDA1YS00ODU2LWEzNzUtNmE0ODNjMDU0NjY1IiwiZXhwIjoxNzUwMDY2OTg1LCJpc3MiOiJiYWNrZW5kQlVNUCIsImF1ZCI6ImZyb250ZW5kQlVNUCJ9.ccsqwgHH5gIIMA9gvpPHEodSzYq4Or_kdUdjlqJNUvQ",
 									"type": "string"
 								}
 							]
