@@ -429,6 +429,7 @@ namespace Data.Repositories
                                 IdRegistroSintoma = reader.GetInt32(reader.GetOrdinal("ID_REGISTRO_SINTOMA")),
                                 IdEmbarazo = reader.GetInt32(reader.GetOrdinal("ID_EMBARAZO")),
                                 IdSintoma = reader.GetInt32(reader.GetOrdinal("ID_SINTOMA")),
+                                NombreSintoma = reader.GetString(reader.GetOrdinal("NOMBRE_SINTOMA")),
                                 FechaRegistro = reader.GetDateTime(reader.GetOrdinal("FECHA_REGISTRO")),
                                 Notas = reader.IsDBNull(reader.GetOrdinal("NOTAS")) ? "" : reader.GetString(reader.GetOrdinal("NOTAS"))
                             };
